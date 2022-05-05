@@ -1,0 +1,11 @@
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+gui:
+  language: "en"
+os:
+  editCommand: "floaterm"
+  editCommandTemplate: "{{editor}} +{{line}} {{filename}}"
+  openCommand: "code -rg {{filename}}"
+

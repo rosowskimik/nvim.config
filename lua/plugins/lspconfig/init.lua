@@ -23,7 +23,7 @@ local custom_attach = function(client, bufnr)
 
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.cmd([[
     augroup lsp_document_highlight
       autocmd! * <buffer>
@@ -37,11 +37,17 @@ local custom_attach = function(client, bufnr)
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
-updated_capabilities = require("cmp_nvim_lsp").update_capabilities(updated_capabilities)
+updated_capabilities.textDocument.completion.completionItem.resolveSupport =
+  { properties = { "documentation", "detail", "additionalTextEdits" } }
+updated_capabilities = require("cmp_nvim_lsp").default_capabilities(updated_capabilities)
+
+updated_capabilities.textDocument.semanticHighlighting = true
+updated_capabilities.offsetEncoding = "utf-8"
 
 local servers = {
   html = true,
   vimls = true,
+  tsserver = (vim.fn.executable("typescript-language-server")),
   pyright = (1 == vim.fn.executable("pyright")),
   gopls = (1 == vim.fn.executable("gopls")),
   cmake = (1 == vim.fn.executable("cmake-language-server")),
@@ -53,17 +59,8 @@ local servers = {
       "--suggest-missing-includes",
       "--clang-tidy",
       "--header-insertion=iwyu",
-    },
-  },
-
-  tsserver = {
-    filetypes = {
-      "javascript",
-      "javascriptreact",
-      "javascript.jsx",
-      "typescript",
-      "typescriptreact",
-      "typescript.tsx",
+      "--header-insertion-decorators",
+      "--enable-config",
     },
   },
 }
@@ -113,7 +110,7 @@ rust_opts.settings = {
     procMacro = { enable = true },
     checkOnSave = {
       command = "clippy",
-      allFeatures = true,
+      features = "all",
       extraArgs = { "--no-deps" },
     },
   },
@@ -127,23 +124,30 @@ require("rust-tools").setup({
   server = rust_opts,
 })
 
-vim.cmd([[
-  function! ShowDocs()
-    if (index(['vim', 'help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      execute 'lua vim.lsp.buf.hover()'
-    endif
-  endfunction
-]])
+-- vim.cmd([[
+--   function! ShowDocs()
+--     if (index(['vim', 'help'], &filetype) >= 0)
+--       execute 'h '.expand('<cword>')
+--     else
+--       execute 'lua vim.lsp.buf.hover()'
+--     endif
+--   endfunction
+-- ]])
 
-K("n", "gd", ":lua vim.lsp.buf.definition()<CR>")
-K("n", "gD", ":lua vim.lsp.buf.declaration()<CR>")
-K("n", "gT", ":lua vim.lsp.buf.type_definition()<CR>")
+K("n", "gd", vim.lsp.buf.definition)
+K("n", "gD", vim.lsp.buf.declaration)
+K("n", "gI", vim.lsp.buf.implementation)
+K("n", "<leader>D", vim.lsp.buf.type_definition)
+K("n", "<leader>i", vim.lsp.buf.code_action)
+K("v", "<leader>i", vim.lsp.buf.range_code_action)
+K("n", "K", vim.lsp.buf.hover)
+K("n", "<c-K>", vim.lsp.buf.signature_help)
+K("n", "<F2>", vim.lsp.buf.rename)
+K("n", "g[", vim.diagnostic.goto_prev)
+K("n", "g]", vim.diagnostic.goto_next)
+K("n", "<leader>wa", vim.lsp.buf.add_workspace_folder)
+K("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder)
+K("n", "<leader>wl", function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end)
 K("n", "<leader>rr", ":LspRestart<CR>")
-K("n", "<leader>i", ":lua vim.lsp.buf.code_action()<CR>")
-K("v", "<leader>i", ":lua vim.lsp.buf.range_code_action()<CR>")
-K("n", "K", ":call ShowDocs()<CR>")
-K("n", "<F2>", ":lua vim.lsp.buf.rename()<CR>")
-K("n", "g[", ":lua vim.diagnostic.goto_prev()<CR>")
-K("n", "g]", ":lua vim.diagnostic.goto_next()<CR>")

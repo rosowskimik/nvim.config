@@ -39,6 +39,8 @@ return require("packer").startup({
 
     use("ggandor/lightspeed.nvim")
 
+    use("gpanders/nvim-parinfer")
+
     use({
       "voldikss/vim-floaterm",
       config = function()
@@ -57,6 +59,7 @@ return require("packer").startup({
     })
 
     use("tpope/vim-surround")
+    use("tpope/vim-sleuth")
 
     use({
       "numToStr/Comment.nvim",
@@ -84,14 +87,24 @@ return require("packer").startup({
     })
 
     use({
+      "lukas-reineke/indent-blankline.nvim",
+      config = function()
+        require("plugins.indent_blankline")
+      end,
+    })
+
+    use({
       "nvim-treesitter/nvim-treesitter",
       requires = {
         "JoosepAlviste/nvim-ts-context-commentstring",
         "windwp/nvim-ts-autotag",
         "andymass/vim-matchup",
         "p00f/nvim-ts-rainbow",
+        "nvim-treesitter/nvim-treesitter-textobjects",
       },
-      run = ":TSUpdate",
+      run = function()
+        pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+      end,
       config = function()
         require("plugins.treesitter")
       end,
@@ -130,6 +143,8 @@ return require("packer").startup({
         require("plugins.harpoon")
       end,
     })
+
+    use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
 
     use({
       "nvim-telescope/telescope.nvim",

@@ -52,7 +52,7 @@ K("v", "p", '"_dP')
 -- Quickly insert at end of the line
 K("n", "<leader>,", "maA,<esc>`a")
 K("n", "<leader>;", "maA;<esc>`a")
-K("n", "<leader>?", "maA?<esc>`a")
+-- K("n", "<leader>?", "maA?<esc>`a")
 
 -- Move by line
 K("n", "k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })

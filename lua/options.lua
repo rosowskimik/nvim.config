@@ -73,11 +73,11 @@ o.formatoptions = o.formatoptions - "a" - "t" + "c" + "q" - "o" + "r" + "n" + "j
 -- o.list = true
 
 -- Tab
-o.shiftwidth = 4
-o.softtabstop = 4
-o.tabstop = 4
-o.expandtab = true
-o.smartindent = true
+-- o.expandtab = true
+-- o.expandtab = true
+-- o.tabstop = 4
+-- o.expandtab = true
+-- o.smartindent = true
 
 -- Completion
 o.cmdheight = 2

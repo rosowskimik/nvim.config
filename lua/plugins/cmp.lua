@@ -37,9 +37,11 @@ cmp.setup({
     end, { "i", "s" }),
     ["<M-j>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
     ["<M-k>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<enter>"] = cmp.mapping(cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
+      behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }, { "i", "c" })),
   },

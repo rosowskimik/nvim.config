@@ -18,6 +18,5 @@ vim.cmd([[
 
 vim.g.rehash256 = 1
 vim.opt.termguicolors = true
+-- Nightfox theme
 vim.cmd("colorscheme nightfox")
--- vim.g.nightfox_transparent = 'true'
--- require("nightfox").load("nightfox")

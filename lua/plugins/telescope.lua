@@ -41,8 +41,9 @@ telescope.setup({
 })
 
 telescope.load_extension("harpoon")
+pcall(telescope.load_extension, "fzf")
 
-M.search_nvim_config = function()
+local search_nvim_config = function()
   builtin.find_files({
     prompt_title = "< VimRC >",
     cwd = utils.nvim_config_path(),
@@ -50,20 +51,15 @@ M.search_nvim_config = function()
   })
 end
 
-K("n", "<leader>gb", ":Telescope git_branches<CR>")
+K("n", "<leader>gb", ":Telescope git_branches<CR>", { desc = "[G]it [B]ranches" })
 K("n", "<leader>gg", ":Telescope git_status<CR>")
--- K("n", "<leader>ff", ":Telescope find_files<CR>")
-K("n", "<leader>fe", ":Telescope file_browser<CR>")
-vim.keymap.set("n", "<leader>fe", function()
-  builtin.find_files({ hidden = true })
-end)
+K("n", "<leader>fe", function() builtin.find_files({ hidden = true }) end)
 K("n", "<leader>fb", ":Telescope buffers<CR>")
 K("n", "<leader>fh", ":Telescope help_tags<CR>")
-K("n", "<leader>fo", ":Telescope oldfiles<CR>")
+K("n", "<leader>?", ":Telescope oldfiles<CR>")
 K("n", "gr", ":Telescope lsp_references<CR>")
-K("n", "gI", ":Telescope lsp_implementations<CR>")
-K("n", "gs", ":Telescope lsp_document_symbols<CR>")
-K("n", "gws", ":Telescope lsp_dynamic_workspace_symbols<CR>")
-K("n", "<leader>fd", ":lua M.search_nvim_config()<CR>")
+K("n", "ds", ":Telescope lsp_document_symbols<CR>")
+K("n", "ws", ":Telescope lsp_dynamic_workspace_symbols<CR>")
+K("n", "<leader>fd", search_nvim_config)
 K("n", "<leader>fw", ':lua require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })<CR>')
 K("n", "<leader>fg", ':lua require("telescope.builtin").grep_string({ search = vim.fn.input("Grep for > ") })<CR>')

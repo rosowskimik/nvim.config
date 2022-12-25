@@ -5,8 +5,8 @@ pcall(require, "impatient")
 pcall(require, "packer_compiled")
 
 if not pcall(require, "packer") then
-	require("utils").get_packer()
-	return
+  require("utils").get_packer()
+  return
 end
 
 require("options")

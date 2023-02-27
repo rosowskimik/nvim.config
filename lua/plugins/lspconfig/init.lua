@@ -106,6 +106,9 @@ rust_opts.settings = {
     },
     cargo = {
       loadOutDirsFromCheck = true,
+      buildScripts = {
+        enable = true,
+      }
     },
     procMacro = { enable = true },
     checkOnSave = {

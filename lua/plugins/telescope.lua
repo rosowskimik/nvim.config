@@ -54,6 +54,7 @@ end
 K("n", "<leader>gb", ":Telescope git_branches<CR>", { desc = "[G]it [B]ranches" })
 K("n", "<leader>gg", ":Telescope git_status<CR>")
 K("n", "<leader>fe", function() builtin.find_files({ hidden = true }) end)
+K("n", "<C-p>", function() builtin.find_files({ hidden = true }) end)
 K("n", "<leader>fb", ":Telescope buffers<CR>")
 K("n", "<leader>fh", ":Telescope help_tags<CR>")
 K("n", "<leader>?", ":Telescope oldfiles<CR>")

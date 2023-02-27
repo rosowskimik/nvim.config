@@ -1,5 +1,20 @@
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "cmake", "typescript", "help", "vim" },
+  ensure_installed = {
+    "c",
+    "cpp",
+    "go",
+    "lua",
+    "python",
+    "rust",
+    "cmake",
+    "typescript",
+    "help",
+    "vim",
+    "make",
+    "markdown",
+    "markdown_inline",
+    "toml",
+  },
 
   highlight = { enable = true },
   context_commentstring = { enable = true },

@@ -9,19 +9,6 @@ return require("packer").startup({
       end,
     })
 
-    --use {
-    --  'ThePrimeagen/refactoring.nvim',
-    --  requires = {
-    --    {'nvim-lua/plenary.nvim'},
-    --    {'nvim-treesitter/nvim-treesitter'},
-    --  },
-    --  config = function()
-    --    require('plugins.refactoring')
-    --  end,
-    --}
-    --
-    -- use("tjdevries/cyclist.vim")
-
     use({
       "mhinz/vim-sayonara",
       config = function()
@@ -29,15 +16,20 @@ return require("packer").startup({
       end,
     })
 
-    -- use({
-    -- 	"phaazon/hop.nvim",
-    -- 	branch = "v1",
-    -- 	config = function()
-    -- 		require("plugins.hop")
-    -- 	end,
-    -- })
+    use({
+      "ggandor/leap.nvim",
+      config = function()
+        require("leap").add_default_mappings(true)
+      end,
+    })
 
-    use("ggandor/lightspeed.nvim")
+    use({
+      "ggandor/flit.nvim",
+      requires = { "ggandor/leap.nvim" },
+      config = function()
+        require("flit").setup()
+      end,
+    })
 
     use("gpanders/nvim-parinfer")
 
@@ -82,14 +74,20 @@ return require("packer").startup({
       "nvim-lualine/lualine.nvim",
       requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = function()
-        require("plugins.lualine")
+        require("lualine").setup({
+          options = { theme = "nightfox" },
+          extensions = { "nvim-tree", "quickfix", "symbols-outline" },
+        })
       end,
     })
 
     use({
       "lukas-reineke/indent-blankline.nvim",
       config = function()
-        require("plugins.indent_blankline")
+        require("indent_blankline").setup({
+          char = "┊",
+          show_trailing_blankline_indent = false,
+        })
       end,
     })
 
@@ -113,7 +111,7 @@ return require("packer").startup({
     use({
       "windwp/nvim-autopairs",
       config = function()
-        require("plugins.autopairs")
+        require("nvim-autopairs").setup({ check_ts = true })
       end,
     })
 
@@ -170,8 +168,6 @@ return require("packer").startup({
     use("antoinemadec/FixCursorHold.nvim")
 
     use("simrat39/rust-tools.nvim")
-
-    -- use("fatih/vim-go")
 
     use({
       "neovim/nvim-lspconfig",

@@ -1,5 +1,4 @@
-local comment = require("Comment")
-comment.setup({
+require("Comment").setup({
   toggler = {
     line = "<C-_>",
     block = "<C-\\>",

@@ -23,13 +23,13 @@ return require("packer").startup({
       end,
     })
 
-    use({
-      "ggandor/flit.nvim",
-      requires = { "ggandor/leap.nvim" },
-      config = function()
-        require("flit").setup()
-      end,
-    })
+    -- use({
+    --   "ggandor/flit.nvim",
+    --   requires = { "ggandor/leap.nvim" },
+    --   config = function()
+    --     require("flit").setup()
+    --   end,
+    -- })
 
     use("gpanders/nvim-parinfer")
 

@@ -58,6 +58,7 @@ local servers = {
       "--background-index",
       "--suggest-missing-includes",
       "--clang-tidy",
+      "--fallback-style=chromium",
       "--header-insertion=iwyu",
       "--header-insertion-decorators",
       "--enable-config",
@@ -142,7 +143,7 @@ K("n", "gD", vim.lsp.buf.declaration)
 K("n", "gI", vim.lsp.buf.implementation)
 K("n", "<leader>D", vim.lsp.buf.type_definition)
 K("n", "<leader>i", vim.lsp.buf.code_action)
-K("v", "<leader>i", vim.lsp.buf.range_code_action)
+-- K("v", "<leader>i", vim.lsp.buf.range_code_action)
 K("n", "K", vim.lsp.buf.hover)
 K("n", "<c-K>", vim.lsp.buf.signature_help)
 K("n", "<F2>", vim.lsp.buf.rename)

@@ -7,7 +7,7 @@ lspformat.setup({
 
 local c_family = function()
   return {
-    formatCommand = [[clang-format --assume-filename=${INPUT}]],
+    formatCommand = [[clang-format --assume-filename=${INPUT} --style=chromium]],
     formatStdin = true,
   }
 end

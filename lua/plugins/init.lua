@@ -30,6 +30,7 @@ return require("packer").startup({
     --     require("flit").setup()
     --   end,
     -- })
+    use("christoomey/vim-tmux-navigator")
 
     use("gpanders/nvim-parinfer")
 

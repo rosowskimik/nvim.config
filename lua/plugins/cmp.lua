@@ -15,24 +15,24 @@ cmp.setup({
     end,
   },
   mapping = {
-    -- ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ cmp.SelectBehavior.Select }), { "i", "c" }),
     ["<C-j>"] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      elseif cmp.visible() then
+      -- if luasnip.expand_or_locally_jumpable() then
+      --   luasnip.expand_or_jump()
+      -- elseif cmp.visible() then
+      if cmp.visible() then
         cmp.select_next_item({ cmp.SelectBehavior.Select })
       else
-        fallback()
+        -- fallback()
       end
     end, { "i", "s" }),
-    -- ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ cmp.SelectBehavior.Select }), { "i", "c" }),
     ["<C-k>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      elseif cmp.visible() then
+      -- if luasnip.jumpable(-1) then
+      --   luasnip.jump(-1)
+      -- elseif cmp.visible() then
+      if cmp.visible() then
         cmp.select_prev_item({ cmp.SelectBehavior.Select })
       else
-        fallback()
+        -- fallback()
       end
     end, { "i", "s" }),
     ["<M-j>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),

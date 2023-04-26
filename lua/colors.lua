@@ -4,10 +4,12 @@ vim.cmd([[
     hi LspReferenceRead gui=underline cterm=underline guifg=0 guibg=0
     hi LspReferenceWrite gui=underline cterm=underline guifg=0 guibg=0
     hi FloatermBorder guibg=#192330 guifg=#415166
+    hi NormalFloat guibg=#192330
     hi NonText guifg=#15AABF
     hi Visual ctermbg=darkred ctermfg=0
     hi CursorLine cterm=NONE ctermbg=black
     hi VertSplit guibg=#0D131A
+    hi LspSignatureActiveParameter guifg=#baa1e2
   endfunction
 
   augroup MyColors

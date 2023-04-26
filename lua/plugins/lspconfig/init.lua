@@ -16,7 +16,7 @@ end
 local custom_attach = function(client, bufnr)
   require("lsp_signature").on_attach({
     bind = true,
-    handler_opts = { border = "rounded" },
+    handler_opts = { border = "single" },
   }, bufnr)
 
   lspformat.on_attach(client)

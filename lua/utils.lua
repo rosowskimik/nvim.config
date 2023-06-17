@@ -14,7 +14,7 @@ M.is_wsl = function()
 end
 
 M.std_config_path = function()
-	if M.is_unix then
+	if M.is_unix() then
 		return os.getenv("XDG_CONFIG_HOME")
 	else
 		return os.getenv("LOCALAPPDATA")

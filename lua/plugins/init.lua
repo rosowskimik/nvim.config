@@ -30,7 +30,6 @@ return require("packer").startup({
     --     require("flit").setup()
     --   end,
     -- })
-    use("christoomey/vim-tmux-navigator")
 
     use("gpanders/nvim-parinfer")
 
@@ -229,6 +228,14 @@ return require("packer").startup({
     })
 
     use({
+      "christoomey/vim-tmux-navigator",
+      cond = require("utils").is_unix,
+      config = function()
+        require("plugins.tmux_nav")
+      end,
+    })
+
+    use({
       "cespare/vim-toml",
       ft = { "toml" },
     })
@@ -236,6 +243,14 @@ return require("packer").startup({
     use({
       "plasticboy/vim-markdown",
       ft = { "markdown" },
+    })
+
+    use({
+      "ziglang/zig.vim",
+      ft = { "zig" },
+      setup = function()
+        vim.g.zig_fmt_autosave = 0
+      end,
     })
   end,
   config = {

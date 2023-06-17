@@ -13,12 +13,16 @@ M.is_wsl = function()
 	return not not string.find(output[1] or "", "WSL")
 end
 
-M.nvim_config_path = function()
-	if M.is_unix() or M.is_wsl() then
-		return os.getenv("XDG_CONFIG_HOME") .. "/nvim"
+M.std_config_path = function()
+	if M.is_unix then
+		return os.getenv("XDG_CONFIG_HOME")
 	else
-		return os.getenv("LOCALAPPDATA") .. "/nvim"
+		return os.getenv("LOCALAPPDATA")
 	end
+end
+
+M.nvim_config_path = function()
+	return M.std_config_path() .. "/nvim"
 end
 
 M.get_packer = function()

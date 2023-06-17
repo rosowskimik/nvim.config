@@ -1,23 +1,29 @@
 local lspformat = require("lsp-format")
 local lspconfig = require("lspconfig")
 
+local utils = require("utils")
+
 lspformat.setup({
-  lua = { indent_width = 2, indent_type = "Spaces" },
+  lua = {
+    indent_width = 2,
+    indent_type = "spaces",
+  },
 })
 
-local c_family = function()
+function c_family(lang)
   return {
-    formatCommand = [[clang-format --assume-filename=${INPUT} --style=chromium]],
+    formatCommand = "clang-format --assume-filename=${INPUT} --style=file:"
+      .. utils.std_config_path()
+      .. "/clangd/clang-format-"
+      .. lang,
     formatStdin = true,
   }
 end
 
-local javascript_family = function()
-  return {
-    formatCommand = [[deno fmt -]],
-    formatStdin = true,
-  }
-end
+local javascript_family = {
+  formatCommand = [[deno fmt -]],
+  formatStdin = true,
+}
 
 lspconfig.efm.setup({
   on_attach = lspformat.on_attach,
@@ -27,16 +33,16 @@ lspconfig.efm.setup({
       cmake = {
         { formatCommand = [[cmake-format -]], formatStdin = true },
       },
-      c = { c_family() },
-      cpp = { c_family() },
+      c = { c_family("c") },
+      cpp = { c_family("cpp") },
       go = {
         { formatCommand = [[gofmt]], formatStdin = true },
         { formatCommand = [[goimports]], formatStdin = true },
       },
-      javascript = { javascript_family() },
-      javascriptreact = { javascript_family() },
-      json = { javascript_family() },
-      jsonc = { javascript_family() },
+      javascript = { javascript_family },
+      javascriptreact = { javascript_family },
+      json = { javascript_family },
+      jsonc = { javascript_family },
       lua = {
         {
           formatCommand = [[stylua --stdin-filepath ${INPUT} ${--indent-width:indent_width} ${--indent-type:indent_type} -]],
@@ -53,8 +59,11 @@ lspconfig.efm.setup({
       toml = {
         { formatCommand = "taplo fmt -", formatStdin = true },
       },
-      typescript = { javascript_family() },
-      typescriptreact = { javascript_family() },
+      typescript = { javascript_family },
+      typescriptreact = { javascript_family },
+      zig = {
+        { formatCommand = "zig fmt --stdin", formatStdin = true },
+      },
     },
   },
 })

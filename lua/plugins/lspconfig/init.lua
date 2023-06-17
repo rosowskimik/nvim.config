@@ -51,14 +51,14 @@ local servers = {
   pyright = (1 == vim.fn.executable("pyright")),
   gopls = (1 == vim.fn.executable("gopls")),
   cmake = (1 == vim.fn.executable("cmake-language-server")),
+  zls = (1 == vim.fn.executable("zls")),
 
   clangd = {
     cmd = {
       "clangd",
       "--background-index",
-      "--suggest-missing-includes",
       "--clang-tidy",
-      "--fallback-style=chromium",
+      "--fallback-style=none",
       "--header-insertion=iwyu",
       "--header-insertion-decorators",
       "--enable-config",
@@ -109,7 +109,7 @@ rust_opts.settings = {
       loadOutDirsFromCheck = true,
       buildScripts = {
         enable = true,
-      }
+      },
     },
     procMacro = { enable = true },
     checkOnSave = {

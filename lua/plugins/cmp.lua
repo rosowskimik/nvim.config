@@ -6,6 +6,9 @@ local cmp = require("cmp")
 cmp.event:on("confirm_done", autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 cmp.setup({
+  window = {
+    documentation = cmp.config.window.bordered(),
+  },
   completion = {
     completeopt = "menuone,noinsert",
   },
@@ -16,23 +19,23 @@ cmp.setup({
   },
   mapping = {
     ["<C-j>"] = cmp.mapping(function(fallback)
-      -- if luasnip.expand_or_locally_jumpable() then
-      --   luasnip.expand_or_jump()
-      -- elseif cmp.visible() then
-      if cmp.visible() then
+      if luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
+      elseif cmp.visible() then
+        -- if cmp.visible() then
         cmp.select_next_item({ cmp.SelectBehavior.Select })
       else
-        -- fallback()
+        fallback()
       end
     end, { "i", "s" }),
     ["<C-k>"] = cmp.mapping(function(fallback)
-      -- if luasnip.jumpable(-1) then
-      --   luasnip.jump(-1)
-      -- elseif cmp.visible() then
-      if cmp.visible() then
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      elseif cmp.visible() then
+        -- if cmp.visible() then
         cmp.select_prev_item({ cmp.SelectBehavior.Select })
       else
-        -- fallback()
+        fallback()
       end
     end, { "i", "s" }),
     ["<M-j>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),

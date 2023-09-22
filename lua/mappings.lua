@@ -1,12 +1,10 @@
-local utils = require("utils")
-
-if utils.is_unix() then
-  K("c", "w!!", "w !sudo tee % > /dev/null")
-  K("c", "rel!!", "execute ':silent w !sudo tee % > /dev/null' | :edit!")
-end
-
-if utils.is_windows() then
-  K("n", "<leader>wt", "<cmd>execute '! wt --window 0 -d ' . stdpath('config')<CR>")
+local K = function(mode, lhs, rhs, opts)
+  local options = { noremap = true, silent = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  -- vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
 -- Exit insert/terminal mode using alt-q

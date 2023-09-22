@@ -1,97 +1,66 @@
-require("nvim-treesitter.configs").setup({
-  ensure_installed = {
-    "bash",
-    "comment",
-    "diff",
-    "dockerfile",
-    "git_config",
-    "git_rebase",
-    "gitattributes",
-    "gitcommit",
-    "gitignore",
-    "gomod",
-    "gosum",
-    "gowork",
-    "help",
-    "json",
-    "json5",
-    "jsonc",
-    "yaml",
-    "zig",
-    -- Global
-    "c",
-    "cpp",
-    "go",
-    "lua",
-    "python",
-    "rust",
-    "cmake",
-    "typescript",
-    "vim",
-    -- "vimdoc",
-    "make",
-    "markdown",
-    "markdown_inline",
-    "toml",
-  },
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "andymass/vim-matchup",
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "bash",
+          "bitbake",
+          "c",
+          "cmake",
+          "comment",
+          "cpp",
+          "devicetree",
+          "diff",
+          "dockerfile",
+          "git_config",
+          "git_rebase",
+          "gitattributes",
+          "gitcommit",
+          "gitignore",
+          "go",
+          "gomod",
+          "gosum",
+          "gowork",
+          "json",
+          "jsonc",
+          "lua",
+          "make",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "rst",
+          "rust",
+          "sql",
+          "toml",
+          "vim",
+          "vimdoc",
+          "yaml",
+          "zig",
+        },
+        -- sync_install = true,
 
-  highlight = { enable = true },
-  context_commentstring = { enable = true },
-  matchup = { enable = true },
-  rainbow = { enable = true, extended_mode = true },
-  autotag = { enable = true },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<c-space>",
-      node_incremental = "<c-space>",
-      scope_incremental = "<c-s>",
-      node_decremental = "<c-backspace>",
-    },
+        highlight = { enable = true },
+        indent = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<c-space>",
+            node_incremental = "<c-space>",
+            scope_incremental = "<c-s>",
+            node_decremental = "<c-backspace>",
+          },
+        },
+
+        -- Extended modules
+        context_commentstring = { enable = true },
+        matchup = { enable = true },
+      })
+    end,
   },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer",
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
-      },
-    },
-  },
-})
+}

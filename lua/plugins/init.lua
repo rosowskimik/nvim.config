@@ -1,259 +1,249 @@
-return require("packer").startup({
-  function(use)
-    use("lewis6991/impatient.nvim")
-    use("wbthomason/packer.nvim")
-    use({
-      "EdenEast/nightfox.nvim",
-      config = function()
-        require("colors")
-      end,
-    })
+return {
+  { "folke/lazy.nvim", version = "*" },
 
-    use({
-      "mhinz/vim-sayonara",
-      config = function()
-        require("plugins.sayonara")
-      end,
-    })
-
-    use({
-      "ggandor/leap.nvim",
-      config = function()
-        require("leap").add_default_mappings(true)
-      end,
-    })
-
-    -- use({
-    --   "ggandor/flit.nvim",
-    --   requires = { "ggandor/leap.nvim" },
-    --   config = function()
-    --     require("flit").setup()
-    --   end,
-    -- })
-
-    use("gpanders/nvim-parinfer")
-
-    use({
-      "voldikss/vim-floaterm",
-      config = function()
-        require("plugins.floaterm")
-      end,
-    })
-
-    use({
-      "lewis6991/gitsigns.nvim",
-      requires = {
-        "nvim-lua/plenary.nvim",
-      },
-      config = function()
-        require("gitsigns").setup()
-      end,
-    })
-
-    use("tpope/vim-surround")
-    use("tpope/vim-sleuth")
-
-    use({
-      "numToStr/Comment.nvim",
-      config = function()
-        require("plugins.comment")
-      end,
-    })
-
-    use("kyazdani42/nvim-web-devicons")
-
-    use({
-      "akinsho/bufferline.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-      config = function()
-        require("plugins.bufferline")
-      end,
-    })
-
-    use({
-      "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
-      config = function()
-        require("lualine").setup({
-          options = { theme = "nightfox" },
-          extensions = { "nvim-tree", "quickfix", "symbols-outline" },
-        })
-      end,
-    })
-
-    use({
-      "lukas-reineke/indent-blankline.nvim",
-      config = function()
-        require("indent_blankline").setup({
-          char = "┊",
-          show_trailing_blankline_indent = false,
-        })
-      end,
-    })
-
-    use({
-      "nvim-treesitter/nvim-treesitter",
-      requires = {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        "windwp/nvim-ts-autotag",
-        "andymass/vim-matchup",
-        "p00f/nvim-ts-rainbow",
-        "nvim-treesitter/nvim-treesitter-textobjects",
-      },
-      run = function()
-        pcall(require("nvim-treesitter.install").update({ with_sync = true }))
-      end,
-      config = function()
-        require("plugins.treesitter")
-      end,
-    })
-
-    use({
-      "windwp/nvim-autopairs",
-      config = function()
-        require("nvim-autopairs").setup({ check_ts = true })
-      end,
-    })
-
-    use({
-      "lukas-reineke/lsp-format.nvim",
-      config = function()
-        require("plugins.lspformat")
-      end,
-    })
-
-    use({
-      "kyazdani42/nvim-tree.lua",
-      requires = {
-        "kyazdani42/nvim-web-devicons",
-      },
-      config = function()
-        require("plugins.nvimtree")
-      end,
-    })
-
-    use({
-      "ThePrimeagen/harpoon",
-      requires = {
-        "nvim-lua/plenary.nvim",
-      },
-      config = function()
-        require("plugins.harpoon")
-      end,
-    })
-
-    use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
-
-    use({
-      "nvim-telescope/telescope.nvim",
-      requires = {
-        "nvim-lua/popup.nvim",
-        "nvim-lua/plenary.nvim",
-        "ThePrimeagen/harpoon",
-      },
-      config = function()
-        require("plugins.telescope")
-      end,
-    })
-
-    use("andymass/vim-matchup")
-
-    use({
-      "simrat39/symbols-outline.nvim",
-      config = function()
-        require("plugins.outline")
-      end,
-    })
-
-    use("antoinemadec/FixCursorHold.nvim")
-
-    use("simrat39/rust-tools.nvim")
-
-    use({
-      "neovim/nvim-lspconfig",
-      requires = {
-        "onsails/lspkind-nvim",
-        "hrsh7th/cmp-nvim-lsp",
-        "simrat39/rust-tools.nvim",
-        "ray-x/lsp_signature.nvim",
-        "lukas-reineke/lsp-format.nvim",
-      },
-      config = function()
-        require("plugins.lspconfig")
-      end,
-    })
-
-    use({
-      "mfussenegger/nvim-lint",
-      config = function()
-        require("plugins.nvim-lint")
-      end,
-    })
-
-    use({
-      "folke/trouble.nvim",
-      require = {
-        "kyazdani42/nvim-web-devicons",
-      },
-      config = function()
-        require("plugins.trouble")
-      end,
-    })
-
-    use({
-      "L3MON4D3/LuaSnip",
-      require = {
-        "nvim-treesitter/nvim-treesitter",
-      },
-      config = function()
-        require("plugins.luasnip")
-      end,
-    })
-
-    use({
-      "hrsh7th/nvim-cmp",
-      require = {
-        "onsails/lspkind-nvim",
-        "windwp/nvim-autopairs",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-path",
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-      },
-      config = function()
-        require("plugins.cmp")
-      end,
-    })
-
-    use({
-      "christoomey/vim-tmux-navigator",
-      cond = require("utils").is_unix,
-      config = function()
-        require("plugins.tmux_nav")
-      end,
-    })
-
-    use({
-      "cespare/vim-toml",
-      ft = { "toml" },
-    })
-
-    use({
-      "plasticboy/vim-markdown",
-      ft = { "markdown" },
-    })
-
-    use({
-      "ziglang/zig.vim",
-      ft = { "zig" },
-      setup = function()
-        vim.g.zig_fmt_autosave = 0
-      end,
-    })
-  end,
-  config = {
-    compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+  {
+    "mhinz/vim-sayonara",
+    cmd = "Sayonara",
+    keys = {
+      { "<leader>q", ":Sayonara<CR>" },
+      { "<leader>wq", ":w <Bar> :Format sync <Bar> Sayonara<CR>" },
+    },
   },
-})
+
+  {
+    "numToStr/FTerm.nvim",
+    config = true,
+    keys = {
+      {
+        "<leader>`",
+        function()
+          require("FTerm").toggle()
+        end,
+      },
+      {
+        "<leader>g",
+        function()
+          require("FTerm").run("lazygit")
+        end,
+      },
+    },
+  },
+
+  {
+    "ggandor/leap.nvim",
+    config = function()
+      require("leap").add_default_mappings(true)
+    end,
+  },
+
+  { "lewis6991/gitsigns.nvim", config = true },
+
+  { "kylechui/nvim-surround", config = true },
+
+  { "tpope/vim-sleuth" },
+
+  {
+    "numToStr/Comment.nvim",
+    opts = {
+      mappings = false,
+    },
+    keys = {
+      {
+        "<C-_>",
+        function()
+          require("Comment.api").toggle.linewise.current()
+        end,
+      },
+      {
+        "<C-\\>",
+        function()
+          require("Comment.api").toggle.blockwise.current()
+        end,
+      },
+      {
+        "<C-_>",
+        function()
+          local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+          vim.api.nvim_feedkeys(esc, "nx", false)
+          require("Comment.api").toggle.linewise(vim.fn.visualmode())
+        end,
+        mode = "v",
+      },
+      {
+        "<C-\\>",
+        function()
+          local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+          vim.api.nvim_feedkeys(esc, "nx", false)
+          require("Comment.api").toggle.blockwise(vim.fn.visualmode())
+        end,
+        mode = "v",
+      },
+    },
+  },
+
+  {
+    "akinsho/bufferline.nvim",
+    lazy = false,
+    version = "*",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      options = {
+        offsets = {
+          { filetype = "Neotree", text = "File Explorer", text_align = "center" },
+        },
+        diagnostics = "nvim_lsp",
+      },
+    },
+    keys = {
+      { "<leader><leader>", ":BufferLinePick<CR>" },
+    },
+  },
+
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+    config = function()
+      local rainbow_delimiters = require("rainbow-delimiters")
+
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [""] = rainbow_delimiters.strategy["global"],
+          vim = rainbow_delimiters.strategy["local"],
+        },
+        query = {
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
+        },
+        highlight = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
+        },
+      }
+    end,
+  },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      options = { theme = "nightfox" },
+      extensions = { "neo-tree", "quickfix", "symbols-outline" },
+    },
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = {
+      char = "┊",
+      show_trailing_blankline_indent = false,
+    },
+  },
+
+  {
+    "folke/twilight.nvim",
+    config = true,
+  },
+
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      close_if_last_window = true,
+      filtered_items = {
+        visible = true,
+      },
+    },
+    keys = {
+      { "<leader>e", ":Neotree<CR>" },
+    },
+  },
+
+  {
+    "simrat39/symbols-outline.nvim",
+    config = true,
+    keys = {
+      { "<leader>o", ":SymbolsOutline<CR>" },
+    },
+  },
+
+  { "antoinemadec/FixCursorHold.nvim" },
+
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {
+      bind = true,
+      handler_opts = { border = "single" },
+    },
+  },
+
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = true,
+    keys = {
+      {
+        "<leader>t",
+        function()
+          require("trouble").open("document_diagnostics")
+        end,
+      },
+      {
+        "<leader>tw",
+        function()
+          require("trouble").open("workspace_diagnostics")
+        end,
+      },
+    },
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    version = "2.*",
+    config = function()
+      local ls = require("luasnip")
+      local types = require("luasnip.util.types")
+
+      ls.config.setup({
+        history = false,
+        updateevents = "TextChanged,TextChangedI",
+        delete_check_events = "TextChanged",
+        ext_opts = {
+          [types.choiceNode] = {
+            active = {
+              virt_text = { { "●", "GruvboxOrange" } },
+            },
+          },
+          [types.insertNode] = {
+            active = {
+              virt_text = { { "●", "GruvboxBlue" } },
+            },
+          },
+        },
+      })
+    end,
+  },
+
+  {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    event = "LspAttach",
+    config = true,
+  },
+}

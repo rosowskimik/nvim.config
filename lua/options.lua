@@ -2,33 +2,6 @@ local g = vim.g
 local cmd = vim.cmd
 local o = vim.opt
 
-local disabled_builtins = {
-  "netrw",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
-  "gzip",
-  "zip",
-  "zipPlugin",
-  "tar",
-  "tarPlugin",
-  "getscript",
-  "getscriptPlugin",
-  "vimball",
-  "vimballPlugin",
-  "2html_plugin",
-  "logipat",
-  "rrhelper",
-  "spellfile_plugin",
-  "tutor_mode_plugin",
-  "remote_plugins",
-  "matchit",
-}
-
-for _, plugin in pairs(disabled_builtins) do
-  g["loaded_" .. plugin] = 1
-end
-
 o.timeoutlen = 300
 o.encoding = "utf-8"
 o.fileformat = "unix"
@@ -74,7 +47,6 @@ o.formatoptions = o.formatoptions - "a" - "t" + "c" + "q" - "o" + "r" + "n" + "j
 
 -- Tab
 o.expandtab = true
-o.expandtab = true
 o.tabstop = 4
 o.expandtab = true
 o.smartindent = true
@@ -113,32 +85,3 @@ o.wildignore = {
 }
 o.pumblend = 17
 o.wildoptions = "pum"
-
-local utils = require("utils")
-
-if utils.is_windows() then
-  vim.cmd([[
-		let &shell = has('win32') ? 'pwsh' : 'powershell'
-		let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-		let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-		let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-		set shellquote= shellxquote=
-    ]])
-end
-
-if utils.is_wsl() then
-  vim.cmd([[
-  let g:clipboard = {
-      \   'name': 'win32yank-wsl',
-      \   'copy': {
-      \      '+': 'win32yank -i --crlf',
-      \      '*': 'win32yank -i --crlf',
-      \    },
-      \   'paste': {
-      \      '+': 'win32yank -o --lf',
-      \      '*': 'win32yank -o --lf',
-      \   },
-      \   'cache_enabled': 0,
-      \ }
-  ]])
-end

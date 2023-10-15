@@ -23,7 +23,7 @@ return {
       {
         "<leader>g",
         function()
-          require("FTerm").run("lazygit")
+          require("FTerm").scratch({ cmd = "lazygit" })
         end,
       },
     },
@@ -38,6 +38,7 @@ return {
 
   { "lewis6991/gitsigns.nvim", config = true },
 
+  { "akinsho/git-conflict.nvim", version = "*", config = true },
   { "kylechui/nvim-surround", config = true },
 
   { "tpope/vim-sleuth" },

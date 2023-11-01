@@ -16,5 +16,8 @@ vim.cmd([[
 
     " Highlight yank
     autocmd TextYankPost * silent! lua require("vim.highlight").on_yank({timeout = 650})
+
+    " Set assembly ft
+    autocmd BufNewFile,BufRead *.S set ft=asm
   augroup END
 ]])

@@ -71,6 +71,7 @@ return {
             "--header-insertion=iwyu",
             "--header-insertion-decorators",
             "--enable-config",
+            "--offset-encoding=utf-16",
           },
         },
 

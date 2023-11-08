@@ -163,14 +163,10 @@ return {
     end,
 
     keys = {
-      { "gd", vim.lsp.buf.definition },
       { "gD", vim.lsp.buf.declaration },
-      { "gi", vim.lsp.buf.implementation },
-      { "gt", vim.lsp.buf.type_definition },
-      { "gr", vim.lsp.buf.references },
       { "<leader>i", vim.lsp.buf.code_action },
       { "K", vim.lsp.buf.hover },
-      { "<c-K>", vim.lsp.buf.signature_help },
+      { "<c-K>", vim.lsp.buf.signature_help, mode = "i" },
       { "<F2>", vim.lsp.buf.rename },
       { "<leader>[", vim.diagnostic.goto_prev },
       { "<leader>]", vim.diagnostic.goto_next },

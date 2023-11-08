@@ -53,9 +53,6 @@ return {
           require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })
         end,
       },
-      { "<leader>fb", ":Telescope buffers<CR>" },
-      { "<leader>r", ":Telescope lsp_references<CR>" },
-      { "<leader>ws", ":Telescope lsp_document_symbols<CR>" },
       {
         "<leader>fd",
         function()
@@ -70,6 +67,42 @@ return {
             cwd = os.getenv(config_var) .. "/nvim",
             hidden = true,
           })
+        end,
+      },
+      {
+        "<leader>rg",
+        function()
+          require("telescope.builtin").live_grep()
+        end,
+      },
+      {
+        "gr",
+        function()
+          require("telescope.builtin").lsp_references()
+        end,
+      },
+      {
+        "gd",
+        function()
+          require("telescope.builtin").lsp_definitions()
+        end,
+      },
+      {
+        "gt",
+        function()
+          require("telescope.builtin").lsp_type_definitions()
+        end,
+      },
+      {
+        "gi",
+        function()
+          require("telescope.builtin").lsp_implementations()
+        end,
+      },
+      {
+        "gr",
+        function()
+          require("telescope.builtin").lsp_references()
         end,
       },
     },

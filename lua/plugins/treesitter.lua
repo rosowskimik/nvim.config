@@ -3,7 +3,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = {
-      "JoosepAlviste/nvim-ts-context-commentstring",
       "andymass/vim-matchup",
     },
     config = function(_, opts)
@@ -58,7 +57,6 @@ return {
         },
 
         -- Extended modules
-        context_commentstring = { enable = true },
         matchup = { enable = true },
       })
     end,

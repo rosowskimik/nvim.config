@@ -57,7 +57,7 @@ return {
         html = true,
         vimls = true,
         tsserver = (vim.fn.executable("typescript-language-server")),
-        pyright = (1 == vim.fn.executable("pyright")),
+        pylyzer = (1 == vim.fn.executable("pylyzer")),
         gopls = (1 == vim.fn.executable("gopls")),
         cmake = (1 == vim.fn.executable("cmake-language-server")),
         zls = (1 == vim.fn.executable("zls")),

@@ -19,5 +19,8 @@ vim.cmd([[
 
     " Set assembly ft
     autocmd BufNewFile,BufRead *.S set ft=asm
+
+    " Set orig files as readonly
+    autocmd BufRead *.orig set readonly
   augroup END
 ]])

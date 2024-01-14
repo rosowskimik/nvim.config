@@ -17,8 +17,8 @@ vim.cmd([[
     autocmd ColorScheme,BufEnter * :call MyHighlights()
   augroup END
 ]])
-
-vim.g.rehash256 = 1
-vim.opt.termguicolors = true
--- Nightfox theme
-vim.cmd("colorscheme nightfox")
+--
+-- vim.g.rehash256 = 1
+-- vim.opt.termguicolors = true
+-- -- Nightfox theme
+-- vim.cmd("colorscheme nightfox")

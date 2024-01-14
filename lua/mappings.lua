@@ -38,6 +38,12 @@ K("i", "?", "?<c-g>u")
 K("v", "<C-h>", ":nohlsearch<CR>")
 K("n", "<C-h>", ":nohlsearch<CR>")
 
+-- Toggle special symbol display
+K("n", "<leader>'", ":set invlist<cr>")
+
+-- Toggle between last buffer
+K("n", "<leader><tab>", "<c-^>")
+
 -- Move text around
 K("v", "<up>", "xkP`[V`]")
 K("v", "<down>", "xp`[V`]")

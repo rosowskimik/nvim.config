@@ -68,7 +68,7 @@ return {
     end,
     keys = {
       {
-        "<C-/>",
+        "<C-_>",
         function()
           require("Comment.api").toggle.linewise.current()
         end,
@@ -80,7 +80,7 @@ return {
         end,
       },
       {
-        "<C-/>",
+        "<C-_>",
         function()
           local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
           vim.api.nvim_feedkeys(esc, "nx", false)

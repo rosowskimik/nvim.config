@@ -42,18 +42,6 @@ return {
     end,
     keys = {
       {
-        "<leader>fe",
-        function()
-          require("telescope.builtin").find_files({ hidden = true })
-        end,
-      },
-      {
-        "<leader>fe",
-        function()
-          require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })
-        end,
-      },
-      {
         "<leader>fd",
         function()
           local config_var = ""
@@ -70,15 +58,27 @@ return {
         end,
       },
       {
-        "<leader>rg",
+        "<leader>fe",
         function()
-          require("telescope.builtin").live_grep()
+          require("telescope.builtin").find_files({ hidden = true })
         end,
       },
       {
-        "gr",
+        "<leader>ff",
         function()
-          require("telescope.builtin").lsp_references()
+          require("telescope.builtin").current_buffer_fuzzy_find()
+        end,
+      },
+      {
+        "<leader>gs",
+        function()
+          require("telescope.builtin").grep_string({ search = vim.fn.expand("<cexpr>") })
+        end,
+      },
+      {
+        "<leader>lg",
+        function()
+          require("telescope.builtin").live_grep()
         end,
       },
       {

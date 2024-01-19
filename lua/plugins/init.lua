@@ -150,7 +150,8 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      options = { theme = "nightfox" },
+      -- options = { theme = "nightfox" },
+      options = { theme = "gruvbox-material" },
       extensions = { "neo-tree", "quickfix", "symbols-outline" },
     },
   },
@@ -187,7 +188,7 @@ return {
         vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
       end)
 
-      -- vim.g.rainbow_delimiters = { highlight = highlight }
+      vim.g.rainbow_delimiters = { highlight = highlight }
       require("ibl").setup({
         scope = { highlight = highlight, enabled = true },
         whitespace = { remove_blankline_trail = true },

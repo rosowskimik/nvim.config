@@ -150,8 +150,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      -- options = { theme = "nightfox" },
-      options = { theme = "gruvbox-material" },
+      options = { theme = "nightfox" },
       extensions = { "neo-tree", "quickfix", "symbols-outline" },
     },
   },
@@ -304,7 +303,7 @@ return {
 
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
+    tag = "v1.2.0",
     event = "LspAttach",
     config = true,
   },

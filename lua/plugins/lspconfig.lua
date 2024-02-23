@@ -82,7 +82,7 @@ return {
         --       experimental = { procAttrMacros = true },
         --       assist = {
         --         importGranularity = "crate",
-        --         importPrefix = "by_self",
+        --         importPrefix = "self",
         --       },
         --       cargo = {
         --         loadOutDirsFromCheck = true,
@@ -90,7 +90,10 @@ return {
         --           enable = true,
         --         },
         --       },
-        --       procMacro = { enable = true },
+        --       procMacro = {
+        --         enable = true,
+        --         attributes = { enable = true },
+        --       },
         --       checkOnSave = {
         --         command = "clippy",
         --         features = "all",
@@ -124,21 +127,18 @@ return {
         setup_server(server, config)
       end
 
-      -- Once inlay hints released, can be removed
-      local rust_server_opts = {}
-      vim.tbl_deep_extend("force", {
+      -- -- Once inlay hints released (v0.10), can be removed
+      local rust_server_opts = {
         on_init = custom_init,
         on_attach = custom_attach,
         capabilities = updated_capabilities,
         flags = { debounce_text_changes = 50 },
-      }, rust_server_opts)
-      rust_server_opts.settings =
-        {
+        settings = {
           ["rust-analyzer"] = {
             experimental = { procAttrMacros = true },
             assist = {
               importGranularity = "crate",
-              importPrefix = "by_self",
+              importPrefix = "self",
             },
             cargo = {
               loadOutDirsFromCheck = true,
@@ -146,21 +146,27 @@ return {
                 enable = true,
               },
             },
-            procMacro = { enable = true },
+            procMacro = {
+              enable = true,
+              attributes = { enable = true },
+            },
             checkOnSave = {
               command = "clippy",
               features = "all",
               extraArgs = { "--no-deps" },
             },
           },
-        }, require("rust-tools").setup({
-          tools = {
-            runnables = { use_telescope = true },
-            hover_with_actions = false,
-            inlay_hints = { highlight = "NonText" },
-          },
-          server = rust_opts,
-        })
+        }
+      }
+
+      require("rust-tools").setup({
+        tools = {
+          runnables = { use_telescope = true },
+          hover_with_actions = false,
+          inlay_hints = { highlight = "NonText" },
+        },
+        server = rust_server_opts,
+      })
     end,
 
     keys = {

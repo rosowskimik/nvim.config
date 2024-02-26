@@ -30,6 +30,15 @@ return {
   },
 
   {
+    "aserowy/tmux.nvim",
+    opts = {
+      resize = {
+        enable_default_keybindings = false,
+      },
+    },
+  },
+
+  {
     "ggandor/leap.nvim",
     config = function()
       require("leap").add_default_mappings(true)

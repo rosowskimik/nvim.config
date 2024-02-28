@@ -136,9 +136,8 @@ return {
         settings = {
           ["rust-analyzer"] = {
             experimental = { procAttrMacros = true },
-            assist = {
-              importGranularity = "crate",
-              importPrefix = "self",
+            imports = {
+              prefix = "crate",
             },
             cargo = {
               loadOutDirsFromCheck = true,

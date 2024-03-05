@@ -1,87 +1,93 @@
-local g = vim.g
-local cmd = vim.cmd
-local o = vim.opt
+-- [[ Setting options ]]
+-- See `:help vim.opt`
+-- NOTE: For more options, you can see `:help option-list`
 
-o.timeoutlen = 300
-o.encoding = "utf-8"
-o.fileformat = "unix"
-o.scrolloff = 6
-o.showtabline = 2
-o.showmode = false
-o.hidden = true
-o.wrap = true
-o.joinspaces = false
-o.lazyredraw = true
-o.clipboard = "unnamedplus"
-o.splitright = true
-o.splitbelow = true
-o.number = true
-o.relativenumber = true
-o.signcolumn = "yes"
-o.foldlevelstart = 99
-o.foldmethod = "indent"
-o.synmaxcol = 500
-o.laststatus = 3
-o.diffopt:append("iwhite")
-o.diffopt:append("algorithm:patience")
-o.diffopt:append("indent-heuristic")
-o.diffopt:append("vertical")
-o.showcmd = true
-o.mouse = "a"
-o.shortmess:append("c")
-o.cursorline = true
-o.incsearch = true
-o.ignorecase = true
-o.smartcase = true
-o.gdefault = true
-o.inccommand = "nosplit"
-o.switchbuf = "useopen"
-o.compatible = false
-o.breakindent = true
-o.belloff = "all"
+-- Relative line numbers with current absolute
+vim.opt.number = true
+vim.opt.relativenumber = true
 
-o.formatoptions = o.formatoptions - "a" - "t" + "c" + "q" - "o" + "r" + "n" + "j" - "2"
+-- Enable mouse
+vim.opt.mouse = 'a'
 
--- o.listchars = { eol = "↲", tab = "» ", trail = "·", extends = "<", precedes = ">", conceal = "┊", nbsp = "␣" }
--- o.list = true
+-- Don't show mode, shown in statusline
+vim.opt.showmode = false
 
--- Tab
-o.expandtab = true
-o.tabstop = 4
-o.expandtab = true
-o.smartindent = true
+-- Use system clipboard
+vim.opt.clipboard = 'unnamedplus'
 
--- Completion
-o.cmdheight = 2
-o.updatetime = 300
-o.completeopt = { "menu", "menuone" }
+-- Enable break indent
+vim.opt.breakindent = true
 
--- Permanent undo
-o.swapfile = false
-o.backup = false
-o.undodir = vim.fn.stdpath("data") .. "/vimdid"
-o.undofile = true
-o.undolevels = 1000
+-- Persistent undo
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
 
--- Wildmenu
-o.wildmenu = true
-o.wildignore = {
-  ".hg",
-  ".svn",
-  "*~",
-  "*.png",
-  "*.jpg",
-  "*.gif",
-  "*.settings",
-  "Thumbs.db",
-  "*.min.js",
-  "*.swp",
-  "publish/*",
-  "intermediate/*",
-  "*.o",
-  "*.hi",
-  "Zend",
-  "vendor",
-}
-o.pumblend = 17
-o.wildoptions = "pum"
+-- Case-insensitive search unless capital in search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- Highlight search matches when typing
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+
+-- Signcolumn on by default
+vim.opt.signcolumn = 'yes'
+
+-- Decrease update time
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
+
+-- Decrease wait time for a mapped sequence
+vim.opt.timeoutlen = 500
+
+-- Split config
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Signal whitespace in editor
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Preview substitution
+vim.opt.inccommand = 'split'
+
+-- Set 'g' flag by default in substitution
+vim.opt.gdefault = true
+
+-- Highlight line with cursor
+vim.opt.cursorline = true
+
+-- Minimal number of screen lines to keep between cursor and screen edges
+vim.opt.scrolloff = 10
+
+-- Force use of utf8
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
+
+-- Always show tabline
+vim.opt.showtabline = 1
+
+-- Stop syntax highlight in long, single line files
+vim.opt.synmaxcol = 1000
+
+-- Setup diff mode options
+vim.opt.diffopt:append { 'iwhite', 'algorithm:patience', 'indent-heuristic', 'vertical' }
+
+-- Controls the behavior when switching between buffers
+vim.opt.switchbuf = 'usetab'
+
+-- Setup Tab
+vim.opt.expandtab = true
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+
+-- Autoindent
+vim.opt.smartindent = true
+
+-- Completion options
+vim.opt.completeopt = { 'menu', 'menuone' }
+
+-- Show wildmenu completions in semi-transparent popup
+vim.opt.wildoptions = 'pum'
+vim.opt.pumblend = 17

@@ -1,109 +1,131 @@
 return {
   {
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = "Telescope",
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    cmd = 'Telescope',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      { 'nvim-tree/nvim-web-devicons' },
+      { -- If encountering errors, see telescope-fzf-native README for install instructions
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make',
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
+      },
+    },
     config = function()
-      local telescope = require("telescope")
-      local actions = require("telescope.actions")
-      local sorters = require("telescope.sorters")
-      local builtin = require("telescope.builtin")
+      local actions = require 'telescope.actions'
 
-      telescope.setup({
+      require('telescope').setup {
         defaults = {
-          file_sorter = sorters.get_fzy_sorter,
-          prompt_prefix = " >",
-          color_devicons = true,
-
           mappings = {
             i = {
-              ["<C-x>"] = false,
-              ["<C-j>"] = actions.move_selection_next,
-              ["<C-k>"] = actions.move_selection_previous,
-              ["<M-j>"] = actions.move_selection_next,
-              ["<M-k>"] = actions.move_selection_previous,
-              ["<C-q>"] = actions.send_to_qflist,
-              ["<C-_>"] = actions.close,
+              ['<C-j>'] = actions.move_selection_next,
+              ['<C-k>'] = actions.move_selection_previous,
             },
             n = {
-              ["<C-q>"] = actions.send_to_qflist,
-              ["q"] = actions.close,
-              ["<C-_>"] = actions.close,
+              ['q'] = actions.close,
             },
           },
-          -- pickers = {
-          -- 	file_browser = {
-          -- 		hidden = true,
-          -- 	},
-          -- },
         },
-      })
+      }
+
+      -- Try to load extensions
+      pcall(require('telescope').load_extension, 'fzf')
     end,
     keys = {
       {
-        "<leader>fd",
+        '<leader>sh',
         function()
-          local config_var = ""
-          if vim.fn.has("unix") then
-            config_var = "XDG_CONFIG_HOME"
-          else
-            config_var = "LOCALAPPDATA"
-          end
-          require("telescope.builtin").find_files({
-            prompt_title = "< Nvim Config >",
-            cwd = os.getenv(config_var) .. "/nvim",
-            hidden = true,
+          require('telescope.builtin').help_tags()
+        end,
+        desc = '[S]earch [H]elp',
+      },
+      {
+        '<leader>sk',
+        function()
+          require('telescope.builtin').keymaps()
+        end,
+        desc = '[S]earch [K]eymaps',
+      },
+      {
+        '<leader>sf',
+        function()
+          require('telescope.builtin').find_files()
+        end,
+        desc = '[S]earch [F]iles',
+      },
+      {
+        '<leader>ss',
+        function()
+          require('telescope.builtin').builtin()
+        end,
+        desc = '[S]earch [S]elect Telescope',
+      },
+      {
+        '<leader>sw',
+        function()
+          require('telescope.builtin').grep_string()
+        end,
+        desc = '[S]earch current [W]ord',
+      },
+      {
+        '<leader>sg',
+        function()
+          require('telescope.builtin').live_grep()
+        end,
+        desc = '[S]earch by [G]rep',
+      },
+      {
+        '<leader>sd',
+        function()
+          require('telescope.builtin').diagnostics()
+        end,
+        desc = '[S]earch [D]iagnostics',
+      },
+      {
+        '<leader>sr',
+        function()
+          require('telescope.builtin').resume()
+        end,
+        desc = '[S]earch [R]esume',
+      },
+      {
+        '<leader>s.',
+        function()
+          require('telescope.builtin').oldfiles()
+        end,
+        desc = '[S]earch Recent Files ("." for repeat)',
+      },
+      {
+        '<leader>/',
+        function()
+          require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+            winblend = 10,
+            previewer = false,
           })
         end,
+        desc = '[/] Fuzzy search current buffer',
       },
       {
-        "<leader>fe",
+        '<leader>s/',
         function()
-          require("telescope.builtin").find_files({ hidden = true })
+          require('telescope.builtin').live_grep {
+            grep_open_files = true,
+            prompt_title = 'Live Grep in Open Files',
+          }
         end,
+        desc = '[S]earch [/] in Open Files',
       },
       {
-        "<leader>ff",
+        '<leader>sn',
         function()
-          require("telescope.builtin").current_buffer_fuzzy_find()
+          require('telescope.builtin').find_files {
+            cwd = vim.fn.stdpath 'config',
+          }
         end,
-      },
-      {
-        "<leader>gs",
-        function()
-          require("telescope.builtin").grep_string({ search = vim.fn.expand("<cexpr>") })
-        end,
-      },
-      {
-        "<leader>lg",
-        function()
-          require("telescope.builtin").live_grep()
-        end,
-      },
-      {
-        "gd",
-        function()
-          require("telescope.builtin").lsp_definitions()
-        end,
-      },
-      {
-        "gt",
-        function()
-          require("telescope.builtin").lsp_type_definitions()
-        end,
-      },
-      {
-        "gi",
-        function()
-          require("telescope.builtin").lsp_implementations()
-        end,
-      },
-      {
-        "gr",
-        function()
-          require("telescope.builtin").lsp_references()
-        end,
+        desc = '[S]earch [N]eovim files',
       },
     },
   },

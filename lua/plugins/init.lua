@@ -61,6 +61,46 @@ return {
   },
 
   {
+    'numToStr/FTerm.nvim',
+    opts = {
+      dimensions = {
+        height = 1.0,
+        width = 1.0,
+      },
+    },
+    keys = {
+      {
+        '<A-t>',
+        function()
+          require('FTerm').toggle()
+        end,
+        desc = '[T]oggle terminal',
+      },
+      {
+        '<A-t>',
+        function()
+          require('FTerm').toggle()
+        end,
+        mode = 't',
+        desc = '[T]oggle terminal',
+      },
+      {
+        '<leader>g',
+        function()
+          require('FTerm').scratch {
+            cmd = 'lazygit',
+            dimensions = {
+              height = 1.0,
+              width = 1.0,
+            },
+          }
+        end,
+        desc = 'Open Lazy[G]it',
+      },
+    },
+  },
+
+  {
     'numToStr/Comment.nvim',
     dependencies = {
       {

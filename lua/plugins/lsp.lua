@@ -37,19 +37,15 @@ local servers = {
   zls = {},
 }
 
-local ensure_installed = {
-  'lua-language-server',
-  'stylua',
-}
-
 return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
       'simrat39/rust-tools.nvim',
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'hrsh7th/cmp-nvim-lsp',
+      -- 'williamboman/mason.nvim',
+      -- 'williamboman/mason-lspconfig.nvim',
+      -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
       {
         'j-hui/fidget.nvim',
         version = '*',
@@ -138,7 +134,6 @@ return {
           end
         end,
       })
-
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP Specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -146,23 +141,11 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      require('mason').setup()
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      local lspconfig = require 'lspconfig'
+      for server_name, server in pairs(servers) do
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        lspconfig[server_name].setup(server)
+      end
 
       -- Rust specific plugin for inlay hints
       -- Keep around till Neovim 0.10 is released

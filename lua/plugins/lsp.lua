@@ -43,9 +43,6 @@ return {
     dependencies = {
       'simrat39/rust-tools.nvim',
       'hrsh7th/cmp-nvim-lsp',
-      -- 'williamboman/mason.nvim',
-      -- 'williamboman/mason-lspconfig.nvim',
-      -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
       {
         'j-hui/fidget.nvim',
         version = '*',

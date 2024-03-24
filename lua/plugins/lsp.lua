@@ -169,6 +169,9 @@ return {
               features = 'all',
               extraArgs = { '--no-deps' },
             },
+            diagnostics = {
+              disabled = { 'unresolved-proc-macro' },
+            },
           },
         },
       }

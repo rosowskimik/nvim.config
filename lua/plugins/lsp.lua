@@ -152,13 +152,14 @@ return {
           ['rust-analyzer'] = {
             experimental = { procAttrMacros = true },
             imports = {
-              prefix = 'create',
+              prefix = 'crate',
             },
             cargo = {
               loadOutDirsFromCheck = true,
               buildScripts = {
                 enable = true,
               },
+              features = 'all',
             },
             procMacro = {
               enable = true,

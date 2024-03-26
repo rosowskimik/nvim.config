@@ -31,7 +31,7 @@ return {
           go = { 'goimports', 'gofmt' },
           json = { 'jq' },
           lua = { 'stylua' },
-          python = { { 'ruff', { 'isort', 'black' } } },
+          python = { 'isort', 'black' },
           rust = { 'rustfmt' },
           sh = { 'shfmt' },
           toml = { 'taplo' },

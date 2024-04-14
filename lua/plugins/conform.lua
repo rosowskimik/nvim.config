@@ -41,6 +41,9 @@ return {
           shfmt = {
             prepend_args = { '-i', '2', '-s' },
           },
+          rustfmt = {
+            prepend_args = { '--edition', '2021' },
+          },
         },
         format_on_save = function(bufnr)
           if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat or slow_format_filetypes[vim.bo[bufnr].filetype] then

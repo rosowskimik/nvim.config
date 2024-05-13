@@ -78,7 +78,7 @@ vim.opt.diffopt:append { 'iwhite', 'algorithm:patience', 'indent-heuristic', 've
 vim.opt.switchbuf = 'usetab'
 
 -- Setup Tab
-vim.opt.expandtab = true
+vim.opt.expandtab = false
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.tabstop = 4

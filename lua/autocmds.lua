@@ -14,7 +14,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Return to last known valid position
 vim.api.nvim_create_autocmd('BufReadPost', {
   desc = 'Return to last known valid position',
+  group = vim.api.nvim_create_augroup('opt-position-restore', { clear = true }),
   command = [[if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]],
+})
+
+-- Return to last known valid position
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  desc = 'Set tabstop',
+  group = vim.api.nvim_create_augroup('opt-set-tabstop', { clear = true }),
+  callback = function()
+    vim.o.tabstop = 4
+    vim.o.shiftwidth = 4
+  end,
 })
 
 -- Set correct filetypes
@@ -29,6 +40,6 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
 vim.api.nvim_create_autocmd('BufRead', {
   desc = "Set 'orig' files as readonly",
   pattern = '*.orig',
-  group = vim.api.nvim_create_augroup('opt-position-restore', { clear = true }),
+  group = vim.api.nvim_create_augroup('opt-readonly-orig', { clear = true }),
   command = 'set readonly',
 })

@@ -124,6 +124,7 @@ return {
           basic = true,
           extra = false,
         },
+        ignore = '^$',
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
       }
     end,
@@ -132,13 +133,31 @@ return {
       { '<C-\\>', desc = 'Toggle current line block comment' },
       { '<C-_>', mode = 'v', desc = 'Toggle selection line comment' },
       { '<C-\\>', mode = 'v', desc = 'Toggle selection block comment' },
+      {
+        '<C-/>',
+        function()
+          require('Comment.api').toggle.linewise.current()
+        end,
+        desc = 'Toggle current line comment',
+      },
+      {
+        '<C-/>',
+        function()
+          local esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
+          local api = require 'Comment.api'
+
+          vim.api.nvim_feedkeys(esc, 'nx', false)
+          api.toggle.linewise(vim.fn.visualmode())
+        end,
+        mode = 'v',
+        desc = 'Toggle selection line comment',
+      },
     },
   },
 
   {
     'akinsho/bufferline.nvim',
     lazy = false,
-    version = '*',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       options = {

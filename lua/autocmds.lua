@@ -23,8 +23,10 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   desc = 'Set tabstop',
   group = vim.api.nvim_create_augroup('opt-set-tabstop', { clear = true }),
   callback = function()
-    vim.o.tabstop = 4
-    vim.o.shiftwidth = 4
+    if vim.o.shiftwidth > 4 and vim.o.tabstop > 4 then
+      vim.o.tabstop = 4
+      vim.o.shiftwidth = 4
+    end
   end,
 })
 

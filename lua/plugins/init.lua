@@ -343,6 +343,7 @@ return {
         groups = {
           nightfox = {
             CursorLine = { bg = '#1f2c3d' },
+            LspInlayHint = { link = 'NonText' },
           },
         },
       }

@@ -4,8 +4,8 @@ local servers = {
       basedpyright = {
         analysis = {
           autoSearchPaths = true,
-          diagnosticMode = "openFilesOnly",
-          useLibraryCodeForTypes = true
+          diagnosticMode = 'openFilesOnly',
+          useLibraryCodeForTypes = true,
         },
       },
     },
@@ -21,12 +21,33 @@ local servers = {
       '--enable-config',
       '--offset-encoding=utf-16',
     },
+    settings = {
+      InlayHints = {
+        Designators = true,
+        Enabled = true,
+        ParameterNames = true,
+        DeducedTypes = true,
+      },
+    },
   },
-  gopls = {},
+  gopls = {
+    settings = {
+      hints = {
+        rangeVariableTypes = true,
+        parameterNames = true,
+        constantValues = true,
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        functionTypeParameters = true,
+      },
+    },
+  },
   lua_ls = {
     settings = {
       Lua = {
         runtime = { version = 'LuaJIT' },
+        hint = { enable = true },
         workspace = {
           checkThirdParty = false,
           library = {
@@ -43,16 +64,86 @@ local servers = {
       },
     },
   },
-  pylsp = {},
+  rust_analyzer = {
+    settings = {
+      ['rust-analyzer'] = {
+        experimental = { procAttrMacros = true },
+        imports = {
+          prefix = 'crate',
+        },
+        cargo = {
+          loadOutDirsFromCheck = true,
+          buildScripts = {
+            enable = true,
+          },
+          features = 'all',
+        },
+        procMacro = {
+          enable = true,
+          attributes = { enable = true },
+        },
+        checkOnSave = {
+          command = 'clippy',
+          features = 'all',
+          extraArgs = { '--no-deps' },
+        },
+        diagnostics = {
+          disabled = { 'unresolved-proc-macro' },
+        },
+        inlayHints = {
+          bindingModeHints = {
+            enable = false,
+          },
+          chainingHints = {
+            enable = true,
+          },
+          closingBraceHints = {
+            enable = true,
+            minLines = 25,
+          },
+          closureReturnTypeHints = {
+            enable = 'never',
+          },
+          lifetimeElisionHints = {
+            enable = 'never',
+            useParameterNames = false,
+          },
+          maxLength = 25,
+          parameterHints = {
+            enable = true,
+          },
+          reborrowHints = {
+            enable = 'never',
+          },
+          renderColons = true,
+          typeHints = {
+            enable = true,
+            hideClosureInitialization = false,
+            hideNamedConstructor = false,
+          },
+        },
+      },
+    },
+  },
   taplo = {},
-  zls = {},
+  zls = {
+    settings = {
+      zls = {
+        enable_inlay_hints = true,
+        inlay_hints_show_builtin = true,
+        inlay_hints_exclude_single_argument = true,
+        inlay_hints_hide_redundant_param_names = false,
+        inlay_hints_hide_redundant_param_names_last_token = false,
+      },
+    },
+  },
 }
 
 return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'simrat39/rust-tools.nvim',
+      -- 'simrat39/rust-tools.nvim',
       'hrsh7th/cmp-nvim-lsp',
       {
         'j-hui/fidget.nvim',
@@ -123,22 +214,32 @@ return {
           -- Show signature help
           vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { buffer = event.buf, desc = 'LSP: Show signature help' })
 
-          -- The following two autocommands are used to highlight references of the
-          -- word under your cursor when your cursor rests there for a little while.
-          --    See `:help CursorHold` for information about when this is executed
-          --
-          -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.documentHighlightProvider then
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              callback = vim.lsp.buf.document_highlight,
-            })
+          if client then
+            -- The following two autocommands are used to highlight references of the
+            -- word under your cursor when your cursor rests there for a little while.
+            --    See `:help CursorHold` for information about when this is executed
+            --
+            -- When you move your cursor, the highlights will be cleared (the second autocommand).
+            if client.server_capabilities.documentHighlightProvider then
+              vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                buffer = event.buf,
+                callback = vim.lsp.buf.document_highlight,
+              })
 
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              callback = vim.lsp.buf.clear_references,
-            })
+              vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                buffer = event.buf,
+                callback = vim.lsp.buf.clear_references,
+              })
+            end
+
+            -- If server supports it, enable native inlay hints
+            if client.server_capabilities.inlayHintProvider then -- and vim.bo.filetype ~= 'rust'
+              vim.lsp.inlay_hint.enable(true, { event.buf })
+              map('<leader>ti', function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { event.buf })
+              end, '[T]oggle [I]nlay hints')
+            end
           end
         end,
       })
@@ -156,45 +257,45 @@ return {
       end
 
       -- Rust specific plugin for inlay hints
-      -- Keep around till Neovim 0.10 is released
-      local rust_server_opts = {
-        capabilities = capabilities,
-        settings = {
-          ['rust-analyzer'] = {
-            experimental = { procAttrMacros = true },
-            imports = {
-              prefix = 'crate',
-            },
-            cargo = {
-              loadOutDirsFromCheck = true,
-              buildScripts = {
-                enable = true,
-              },
-              features = 'all',
-            },
-            procMacro = {
-              enable = true,
-              attributes = { enable = true },
-            },
-            checkOnSave = {
-              command = 'clippy',
-              features = 'all',
-              extraArgs = { '--no-deps' },
-            },
-            diagnostics = {
-              disabled = { 'unresolved-proc-macro' },
-            },
-          },
-        },
-      }
-      require('rust-tools').setup {
-        tools = {
-          runnables = { use_telescope = true },
-          hover_with_actions = false,
-          inlay_hints = { highlight = 'NonText' },
-        },
-        server = rust_server_opts,
-      }
+      -- Kept in case the native inlay hints look bad (extra long)
+      -- local rust_server_opts = {
+      --   capabilities = capabilities,
+      --   settings = {
+      --     ['rust-analyzer'] = {
+      --       experimental = { procAttrMacros = true },
+      --       imports = {
+      --         prefix = 'crate',
+      --       },
+      --       cargo = {
+      --         loadOutDirsFromCheck = true,
+      --         buildScripts = {
+      --           enable = true,
+      --         },
+      --         features = 'all',
+      --       },
+      --       procMacro = {
+      --         enable = true,
+      --         attributes = { enable = true },
+      --       },
+      --       checkOnSave = {
+      --         command = 'clippy',
+      --         features = 'all',
+      --         extraArgs = { '--no-deps' },
+      --       },
+      --       diagnostics = {
+      --         disabled = { 'unresolved-proc-macro' },
+      --       },
+      --     },
+      --   },
+      -- }
+      -- require('rust-tools').setup {
+      --   tools = {
+      --     runnables = { use_telescope = true },
+      --     hover_with_actions = false,
+      --     inlay_hints = { highlight = 'NonText' },
+      --   },
+      --   server = rust_server_opts,
+      -- }
     end,
   },
 }

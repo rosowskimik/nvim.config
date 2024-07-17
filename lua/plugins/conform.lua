@@ -23,7 +23,7 @@ return {
       })
 
       require('conform').setup {
-        notify_on_error = true,
+        notify_on_error = false,
         formatters_by_ft = {
           bash = { 'shfmt' },
           c = { 'clang_format' },
@@ -55,13 +55,13 @@ return {
             end
           end
 
-          return { timeout_ms = 300, lsp_fallback = true }, on_format
+          return { timeout_ms = 200, lsp_format = 'fallback' }, on_format
         end,
         format_after_save = function(bufnr)
           if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat or not slow_format_filetypes[vim.bo[bufnr].filetype] then
             return
           end
-          return { lsp_fallback = true }
+          return { lsp_format = 'fallback' }
         end,
       }
     end,

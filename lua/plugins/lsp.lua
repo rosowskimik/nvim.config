@@ -1,4 +1,15 @@
 local servers = {
+  basedpyright = {
+    settings = {
+      basedpyright = {
+        analysis = {
+          autoSearchPaths = true,
+          diagnosticMode = "openFilesOnly",
+          useLibraryCodeForTypes = true
+        },
+      },
+    },
+  },
   clangd = {
     cmd = {
       'clangd',

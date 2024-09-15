@@ -4,8 +4,10 @@ local servers = {
       basedpyright = {
         analysis = {
           autoSearchPaths = true,
-          diagnosticMode = 'openFilesOnly',
+          autoImportCompletions = true,
+          diagnosticMode = 'workspace',
           useLibraryCodeForTypes = true,
+          typeCheckingMode = 'standard',
         },
       },
     },
@@ -29,6 +31,7 @@ local servers = {
         DeducedTypes = true,
       },
     },
+    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   },
   gopls = {
     settings = {
@@ -64,6 +67,7 @@ local servers = {
       },
     },
   },
+  protols = {},
   rust_analyzer = {
     settings = {
       ['rust-analyzer'] = {
@@ -143,7 +147,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- 'simrat39/rust-tools.nvim',
+      'simrat39/rust-tools.nvim',
       'hrsh7th/cmp-nvim-lsp',
       {
         'j-hui/fidget.nvim',
@@ -234,7 +238,7 @@ return {
             end
 
             -- If server supports it, enable native inlay hints
-            if client.server_capabilities.inlayHintProvider then -- and vim.bo.filetype ~= 'rust'
+            if client.server_capabilities.inlayHintProvider and vim.bo.filetype ~= 'rust' then
               vim.lsp.inlay_hint.enable(true, { event.buf })
               map('<leader>ti', function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { event.buf })
@@ -258,44 +262,44 @@ return {
 
       -- Rust specific plugin for inlay hints
       -- Kept in case the native inlay hints look bad (extra long)
-      -- local rust_server_opts = {
-      --   capabilities = capabilities,
-      --   settings = {
-      --     ['rust-analyzer'] = {
-      --       experimental = { procAttrMacros = true },
-      --       imports = {
-      --         prefix = 'crate',
-      --       },
-      --       cargo = {
-      --         loadOutDirsFromCheck = true,
-      --         buildScripts = {
-      --           enable = true,
-      --         },
-      --         features = 'all',
-      --       },
-      --       procMacro = {
-      --         enable = true,
-      --         attributes = { enable = true },
-      --       },
-      --       checkOnSave = {
-      --         command = 'clippy',
-      --         features = 'all',
-      --         extraArgs = { '--no-deps' },
-      --       },
-      --       diagnostics = {
-      --         disabled = { 'unresolved-proc-macro' },
-      --       },
-      --     },
-      --   },
-      -- }
-      -- require('rust-tools').setup {
-      --   tools = {
-      --     runnables = { use_telescope = true },
-      --     hover_with_actions = false,
-      --     inlay_hints = { highlight = 'NonText' },
-      --   },
-      --   server = rust_server_opts,
-      -- }
+      local rust_server_opts = {
+        capabilities = capabilities,
+        settings = {
+          ['rust-analyzer'] = {
+            experimental = { procAttrMacros = true },
+            imports = {
+              prefix = 'crate',
+            },
+            cargo = {
+              loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+              features = 'all',
+            },
+            procMacro = {
+              enable = true,
+              attributes = { enable = true },
+            },
+            checkOnSave = {
+              command = 'clippy',
+              features = 'all',
+              extraArgs = { '--no-deps' },
+            },
+            diagnostics = {
+              disabled = { 'unresolved-proc-macro' },
+            },
+          },
+        },
+      }
+      require('rust-tools').setup {
+        tools = {
+          runnables = { use_telescope = true },
+          hover_with_actions = false,
+          inlay_hints = { highlight = 'NonText' },
+        },
+        server = rust_server_opts,
+      }
     end,
   },
 }

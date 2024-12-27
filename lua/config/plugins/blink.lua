@@ -18,6 +18,7 @@ return {
         nerd_font_variant = "normal",
       },
       sources = {
+        cmdline = {},
         default = { "lsp", "path", "snippets", "buffer" },
       },
       signature = { enabled = true },
@@ -51,6 +52,7 @@ return {
                 end,
               },
             },
+            treesitter = { "lsp" },
           },
         },
       },

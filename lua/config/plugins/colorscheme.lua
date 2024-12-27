@@ -18,11 +18,13 @@ return {
           nightfox = {
             CursorLine = { bg = "#1f2c3d" },
             LspInlayHint = { link = "NonText" },
-            MiniCursorword = { style = "underline" },
-            MiniCursorwordCurrent = { style = "underline" },
             LspReferenceText = { style = "underline" },
             LspReferenceRead = { style = "underline" },
             LspReferenceWrite = { style = "underline" },
+            -- Plugins
+            BlinkCmpGhostText = { link = "NonText" },
+            MiniCursorword = { style = "underline" },
+            MiniCursorwordCurrent = { style = "underline" },
           },
         },
       })

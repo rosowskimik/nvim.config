@@ -41,7 +41,7 @@ return {
             end
 
             -- If server supports it, enable native inlay hints
-            if client.server_capabilities.inlayHintProvider and vim.bo.filetype ~= "rust" then
+            if client.server_capabilities.inlayHintProvider then
               vim.lsp.inlay_hint.enable(true, { event.buf })
               map("<leader>ti", function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { event.buf })

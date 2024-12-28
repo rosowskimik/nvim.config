@@ -21,13 +21,15 @@ local function create_floating_window(opts)
   end
 
   local win_config = {
+    title = "Lazygit",
+    title_pos = "center",
     relative = "editor",
+    style = "minimal",
+    border = "single",
     width = width,
     height = height,
     col = col,
     row = row,
-    style = "minimal",
-    border = "single",
   }
 
   local win = vim.api.nvim_open_win(buf, true, win_config)

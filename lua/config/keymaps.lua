@@ -35,8 +35,7 @@ vim.keymap.set("n", "<leader>,", "maA,<Esc>`a")
 vim.keymap.set("n", "<leader>;", "maA;<Esc>`a")
 vim.keymap.set("n", "<leader>:", "maA:<Esc>`a")
 
--- Move by visual line
-vim.keymap.set("n", "j", '(v:count > 5 ? "m\'" . v:count : "") . "gj"', { expr = true })
-vim.keymap.set("n", "k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })
-vim.keymap.set("v", "j", '(v:count > 5 ? "m\'" . v:count : "") . "gj"', { expr = true })
-vim.keymap.set("v", "k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })
+-- Change tab directory to current file's
+vim.keymap.set("n", "<leader>cd", function()
+  vim.cmd("lc" .. vim.fn.expand("%:h"))
+end)

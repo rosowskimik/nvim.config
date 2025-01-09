@@ -61,7 +61,7 @@ return {
       },
       formatters_by_ft = {
         bash = { "shfmt" },
-        bazel = { "buildifier" },
+        bzl = { "buildifier" },
         c = { "clang_format" },
         cpp = { "clang_format" },
         go = { "goimports", "gofmt" },

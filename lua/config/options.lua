@@ -54,6 +54,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep between cursor and screen edges
 vim.opt.scrolloff = 18
 
+-- Wrap lines by default
+vim.opt.wrap = true
+
 -- Force use of utf8
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"

@@ -120,6 +120,7 @@ return {
             },
           },
         },
+        nixd = {},
         protols = {},
         rust_analyzer = {
           settings = {

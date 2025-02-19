@@ -18,9 +18,9 @@ return {
         nerd_font_variant = "normal",
       },
       sources = {
-        cmdline = {},
         default = { "lsp", "path", "snippets", "buffer" },
       },
+      cmdline = { enabled = false },
       signature = {
         enabled = true,
         window = {

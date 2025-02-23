@@ -9,9 +9,9 @@ return {
       local slow_format_filetypes = {}
       opts.format_on_save = function(bufnr)
         if
-          vim.g.disable_autoformat
-          or vim.b[bufnr].disable_autoformat
-          or slow_format_filetypes[vim.bo[bufnr].filetype]
+            vim.g.disable_autoformat
+            or vim.b[bufnr].disable_autoformat
+            or slow_format_filetypes[vim.bo[bufnr].filetype]
         then
           return
         end
@@ -26,9 +26,9 @@ return {
 
       opts.format_after_save = function(bufnr)
         if
-          vim.g.disable_autoformat
-          or vim.b[bufnr].disable_autoformat
-          or not slow_format_filetypes[vim.bo[bufnr].filetype]
+            vim.g.disable_autoformat
+            or vim.b[bufnr].disable_autoformat
+            or not slow_format_filetypes[vim.bo[bufnr].filetype]
         then
           return
         end
@@ -73,6 +73,7 @@ return {
         proto = { "buf" },
         python = { "ruff_organize_imports", "ruff_format" },
         markdown = { "mdformat", "injected" },
+        nix = { "nixfmt" },
         rust = { "rustfmt" },
         sh = { "shfmt" },
         toml = { "taplo" },

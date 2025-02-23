@@ -73,6 +73,7 @@ return {
         proto = { "buf" },
         python = { "ruff_organize_imports", "ruff_format" },
         markdown = { "mdformat", "injected" },
+        nix = { "nixfmt" },
         rust = { "rustfmt" },
         sh = { "shfmt" },
         toml = { "taplo" },

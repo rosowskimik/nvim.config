@@ -2,7 +2,7 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    cmd = { "ConformInfo", "FormatDisable" },
+    cmd = { "ConformInfo", "FormatToggle" },
     config = function(_, opts)
       opts = opts or {}
 
@@ -35,25 +35,30 @@ return {
         return { lsp_format = "fallback" }
       end
 
-      vim.api.nvim_create_user_command("FormatDisable", function(args)
+      vim.api.nvim_create_user_command("FormatToggle", function(args)
         if args.bang then
-          vim.b.disable_autoformat = true
+          if vim.b.disable_autoformat then
+            vim.b.disable_autoformat = false
+            print("Format enable")
+          else
+            vim.b.disable_autoformat = true
+            print("Format disable")
+          end
         else
-          vim.g.disable_autoformat = true
+          if vim.g.disable_autoformat then
+            vim.g.disable_autoformat = false
+            print("Format enable")
+          else
+            vim.g.disable_autoformat = true
+            print("Format disable")
+          end
         end
-      end, {
-        desc = "Disable format-on-save",
-        bang = true,
-      })
-      vim.api.nvim_create_user_command("FormatEnable", function()
-        vim.b.disable_autoformat = false
-        vim.g.disable_autoformat = false
-      end, {
-        desc = "Enable format-on-save",
-      })
+      end, { desc = "Toggle format-on-save" })
 
       require("conform").setup(opts)
     end,
+    --@module "conform"
+    --@type conform.setupOpts
     opts = {
       notify_on_error = false,
       default_format_opts = {
@@ -85,6 +90,20 @@ return {
         shfmt = {
           prepend_args = { "-i", "2", "-s" },
         },
+      },
+    },
+    keys = {
+      {
+        "<leader>ff",
+        function()
+          require("conform").format()
+        end,
+        desc = "Format buffer",
+      },
+      {
+        "<leader>ft",
+        "<cmd>FormatToggle<cr>",
+        desc = "Toggle formatting",
       },
     },
   },

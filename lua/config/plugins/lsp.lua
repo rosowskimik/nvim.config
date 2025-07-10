@@ -69,11 +69,12 @@ return {
           cmd = {
             "clangd",
             "--background-index",
+            "--background-index-priority=low",
             "--clang-tidy",
-            "--fallback-style=none",
             "--header-insertion=iwyu",
             "--header-insertion-decorators",
             "--enable-config",
+            "--malloc-trim",
             "--offset-encoding=utf-16",
           },
           settings = {

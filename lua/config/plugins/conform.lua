@@ -68,6 +68,7 @@ return {
         bash = { "shfmt" },
         bzl = { "buildifier" },
         c = { "clang_format" },
+        cmake = { "cmake_format" },
         cpp = { "clang_format" },
         go = { "goimports", "gofmt" },
         gn = { "gn" },

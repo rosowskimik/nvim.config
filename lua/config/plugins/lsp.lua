@@ -185,6 +185,12 @@ return {
           },
         },
         taplo = {},
+        tinymist = {
+          settings = {
+            formatterMode = "typstyle",
+            exportPdf = "onType",
+          },
+        },
         zls = {
           settings = {
             zls = {

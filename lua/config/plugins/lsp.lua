@@ -87,6 +87,7 @@ return {
           },
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
+        denols = {},
         gopls = {
           settings = {
             hints = {
@@ -141,11 +142,12 @@ return {
                 enable = true,
                 attributes = { enable = true },
               },
-              checkOnSave = {
+              check = {
                 command = "clippy",
                 features = "all",
                 extraArgs = { "--no-deps" },
               },
+              checkOnSave = true,
               diagnostics = {
                 disabled = { "unresolved-proc-macro" },
               },

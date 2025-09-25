@@ -186,6 +186,7 @@ return {
             },
           },
         },
+        systemd_ls = {},
         taplo = {},
         tinymist = {
           settings = {
@@ -193,6 +194,7 @@ return {
             exportPdf = "onType",
           },
         },
+        typos_lsp = {},
         zls = {
           settings = {
             zls = {

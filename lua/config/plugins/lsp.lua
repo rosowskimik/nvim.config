@@ -191,7 +191,6 @@ return {
         tinymist = {
           settings = {
             formatterMode = "typstyle",
-            exportPdf = "onType",
           },
         },
         typos_lsp = {},

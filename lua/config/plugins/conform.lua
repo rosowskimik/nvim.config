@@ -84,6 +84,7 @@ return {
         sh = { "shfmt" },
         toml = { "taplo" },
         typescript = { "deno_fmt" },
+        typstyle = { "typstyle" },
         zig = { "zigfmt" },
         zsh = { "shfmt" },
       },

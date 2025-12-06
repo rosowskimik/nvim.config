@@ -194,6 +194,11 @@ return {
           },
         },
         typos_lsp = {},
+        qmlls = {
+          cmd = {
+            "/usr/lib/qt6/bin/qmlls",
+          },
+        },
         zls = {
           settings = {
             zls = {

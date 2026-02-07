@@ -199,6 +199,7 @@ return {
             "/usr/lib/qt6/bin/qmlls",
           },
         },
+        verible = {},
         zls = {
           settings = {
             zls = {

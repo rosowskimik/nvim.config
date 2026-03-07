@@ -2,6 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    -- branch = "main",
     dependencies = {
       {
         "andymass/vim-matchup",
@@ -10,9 +11,8 @@ return {
         end,
       },
     },
-
-    config = function()
-      local languages = {
+    opts = {
+      ensure_installed = {
         "bash",
         "comment",
         "diff",
@@ -34,14 +34,10 @@ return {
         "toml",
         "vim",
         "vimdoc",
-      }
-
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = languages,
-        highlight = { enable = true },
-        indent = { enable = true },
-        matchup = { enable = true, disable_virtual_text = false },
-      })
-    end,
+      },
+      highlight = { enable = true },
+      indent = { enable = true },
+      matchup = { enable = true, disable_virtual_text = false },
+    },
   },
 }

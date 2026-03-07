@@ -38,10 +38,16 @@ return {
           line_up = "",
         },
       })
-      require("mini.align").setup()
+      require("mini.clue").setup({
+        triggers = {
+          { mode = { "n", "x" }, keys = "<leader>" },
+          { mode = { "n" }, keys = "[" },
+          { mode = { "n" }, keys = "]" },
+        },
+      })
       require("mini.basics").setup()
+      require("mini.align").setup()
       require("mini.bracketed").setup()
-      require("mini.clue").setup()
       require("mini.diff").setup()
       require("mini.files").setup()
       require("mini.git").setup()

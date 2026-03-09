@@ -1,5 +1,5 @@
 -- Source config
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Source current file" })
+vim.keymap.set("n", "<leader>.", "<cmd>source %<CR>", { desc = "Source current file" })
 vim.keymap.set("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Source current line" })
 vim.keymap.set("v", "<leader>x", "<cmd>.lua<CR>", { desc = "Source current highlight" })
 

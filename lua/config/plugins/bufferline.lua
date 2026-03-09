@@ -12,7 +12,7 @@ return {
       },
     },
     keys = {
-      { "<leader><leader>", ":BufferLinePick<CR>" },
+      { "<leader><leader>", ":BufferLinePick<CR>", desc = "Select Buffer" },
     },
   },
 }

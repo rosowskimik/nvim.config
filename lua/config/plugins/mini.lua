@@ -38,11 +38,22 @@ return {
           line_up = "",
         },
       })
-      require("mini.clue").setup({
+      local miniclue = require("mini.clue")
+      miniclue.setup({
         triggers = {
           { mode = { "n", "x" }, keys = "<leader>" },
           { mode = { "n" }, keys = "[" },
           { mode = { "n" }, keys = "]" },
+          { mode = { "i" }, keys = "<C-x>" },
+          { mode = { "n", "x" }, keys = "g" },
+        },
+        clues = {
+          miniclue.gen_clues.square_brackets(),
+          miniclue.gen_clues.builtin_completion(),
+          miniclue.gen_clues.g(),
+        },
+        window = {
+          delay = 350,
         },
       })
       require("mini.basics").setup()

@@ -11,8 +11,9 @@ return {
         end,
       },
     },
-    opts = {
-      ensure_installed = {
+    config = function()
+      local ts = require("nvim-treesitter")
+      local ensure_installed = {
         "bash",
         "comment",
         "diff",
@@ -24,7 +25,6 @@ return {
         "gitignore",
         "hyprlang",
         "json",
-        "jsonc",
         "lua",
         "make",
         "markdown",
@@ -34,10 +34,26 @@ return {
         "toml",
         "vim",
         "vimdoc",
-      },
-      highlight = { enable = true },
-      indent = { enable = true },
-      matchup = { enable = true, disable_virtual_text = false },
-    },
+        "zsh",
+      }
+
+      ts.setup()
+      ts.install(ensure_installed):wait(300000)
+
+      local languages = ts.get_installed()
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = languages,
+        callback = function()
+          vim.treesitter.start()
+
+          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.wo.foldmethod = "expr"
+          vim.wo.foldlevel = 99
+
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+    end,
   },
 }

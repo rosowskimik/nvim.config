@@ -3,9 +3,6 @@ return {
     "EdenEast/nightfox.nvim",
     priority = 1000,
     config = function()
-      vim.g.rehash256 = 1
-      vim.opt.termguicolors = true
-
       require("nightfox").setup({
         options = {
           styles = {

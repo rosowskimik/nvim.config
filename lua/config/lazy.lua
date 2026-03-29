@@ -15,21 +15,13 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+require("config.opt")
+require("config.keymap")
+require("config.autocmd")
 
-require("config.options")
-require("config.keymaps")
-require("config.autocmds")
-
--- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    -- import your plugins
-    { import = "config.plugins" },
+    { import = "plugins" },
   },
   performance = {
     rtp = {

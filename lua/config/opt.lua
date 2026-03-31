@@ -77,12 +77,6 @@ vim.opt.diffopt:append({ "iwhite", "algorithm:patience", "indent-heuristic", "ve
 -- When switching buffers, reuse existing tabs/windows if possible
 vim.opt.switchbuf = "usetab"
 
--- Indentation: use real tabs, 4-wide by default
-vim.opt.expandtab = false
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.tabstop = 4
-
 -- Open folds by default
 vim.opt.foldlevel = 99
 vim.opt.foldenable = false

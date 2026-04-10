@@ -110,18 +110,6 @@ return {
     end,
     opts = {
       servers = {
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              analysis = {
-                autoSearchPaths = true,
-                autoImportCompletions = true,
-                useLibraryCodeForTypes = true,
-                typeCheckingMode = "standard",
-              },
-            },
-          },
-        },
         clangd = {
           cmd = {
             "clangd",
@@ -167,7 +155,7 @@ return {
                 checkThirdParty = false,
                 library = {
                   "${3rd}/luv/library",
-                  unpack(vim.api.nvim_get_runtime_file("", true)),
+                  table.unpack(vim.api.nvim_get_runtime_file("", true)),
                 },
               },
               completion = { callSnippet = "Replace" },
@@ -211,6 +199,7 @@ return {
             formatterMode = "typstyle",
           },
         },
+        ty = {},
         typos_lsp = {},
         qmlls = {
           cmd = { "/usr/lib/qt6/bin/qmlls" },

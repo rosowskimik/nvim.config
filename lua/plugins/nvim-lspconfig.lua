@@ -155,7 +155,7 @@ return {
                 checkThirdParty = false,
                 library = {
                   "${3rd}/luv/library",
-                  table.unpack(vim.api.nvim_get_runtime_file("", true)),
+                  unpack(vim.api.nvim_get_runtime_file("", true)),
                 },
               },
               completion = { callSnippet = "Replace" },

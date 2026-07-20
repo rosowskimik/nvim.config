@@ -5,8 +5,10 @@ return {
     ft = "typst",
     opts = {
       dependencies_bin = {
-        ["tinymist"] = "tinymist",
+        tinymist = "tinymist",
+        websocat = "websocat",
       },
+      extra_args = { "--verbose" },
     },
     keys = {
       { "<leader>tp", "<cmd>TypstPreviewToggle<CR>", ft = "typst", desc = "Toggle typst preview" },

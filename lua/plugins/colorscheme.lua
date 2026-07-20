@@ -19,6 +19,7 @@ return {
             LspReferenceRead = { style = "underline" },
             LspReferenceWrite = { style = "underline" },
             NormalFloat = { link = "Normal" },
+            LspHoverNormal = { bg = "#0d131a" },
             -- Plugins
             BlinkCmpGhostText = { link = "NonText" },
             MiniCursorword = { style = "underline" },

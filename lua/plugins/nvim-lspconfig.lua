@@ -3,6 +3,16 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { "saghen/blink.cmp", "folke/snacks.nvim" },
     config = function(_, opts)
+      local open_floating_preview = vim.lsp.util.open_floating_preview
+      vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+        opts = opts or {}
+        local bufnr, winnr = open_floating_preview(contents, syntax, opts, ...)
+        if opts.focus_id == "textDocument/hover" and winnr and vim.api.nvim_win_is_valid(winnr) then
+          vim.wo[winnr].winhighlight = "NormalFloat:LspHoverNormal"
+        end
+        return bufnr, winnr
+      end
+
       -- Diagnostic appearance
       vim.diagnostic.config({
         severity_sort = true,

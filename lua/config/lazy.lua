@@ -1,3 +1,7 @@
+if vim.env.NVIM_TS_PARSERS then
+  vim.opt.rtp:prepend(vim.env.NVIM_TS_PARSERS)
+end
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

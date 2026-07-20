@@ -2,7 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
-    build = ":TSUpdate",
+    build = vim.env.NVIM_TS_PARSERS and "" or ":TSUpdate",
     dependencies = {
       {
         "andymass/vim-matchup",
@@ -18,28 +18,29 @@ return {
     config = function()
       local ts = require("nvim-treesitter")
 
-      local ensure_installed = {
-        "bash",
-        "diff",
-        "editorconfig",
-        "git_config",
-        "git_rebase",
-        "gitattributes",
-        "gitcommit",
-        "gitignore",
-        "hyprlang",
-        "json",
-        "lua",
-        "make",
-        "markdown",
-        "markdown_inline",
-        "ssh_config",
-        "tmux",
-        "toml",
-        "vim",
-        "vimdoc",
-        "zsh",
-      }
+      local ensure_installed = vim.env.NVIM_TS_PARSERS and {}
+        or {
+          "bash",
+          "diff",
+          "editorconfig",
+          "git_config",
+          "git_rebase",
+          "gitattributes",
+          "gitcommit",
+          "gitignore",
+          "hyprlang",
+          "json",
+          "lua",
+          "make",
+          "markdown",
+          "markdown_inline",
+          "ssh_config",
+          "tmux",
+          "toml",
+          "vim",
+          "vimdoc",
+          "zsh",
+        }
 
       ts.setup()
       ts.install(ensure_installed)

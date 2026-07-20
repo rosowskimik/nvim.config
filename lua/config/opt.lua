@@ -82,7 +82,7 @@ vim.opt.foldlevel = 99
 vim.opt.foldenable = false
 
 -- Smarter autoindent based on syntax
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 
 -- True color support
 vim.opt.termguicolors = true

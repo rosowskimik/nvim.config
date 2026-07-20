@@ -15,11 +15,11 @@ return {
         },
       },
     },
-    config = function()
+    config = function(opts)
       local ts = require("nvim-treesitter")
 
-      local ensure_installed = vim.env.NVIM_TS_PARSERS and {}
-        or {
+      if vim.env.NVIM_TS_PARSERS == nil then
+        local ensure_installed = {
           "bash",
           "diff",
           "editorconfig",
@@ -42,20 +42,38 @@ return {
           "zsh",
         }
 
-      ts.setup()
-      ts.install(ensure_installed)
+        ts.setup()
+        ts.install(ensure_installed)
+      else
+        ts.setup({ install_dir = vim.env.NVIM_TS_PARSERS })
+      end
 
       vim.api.nvim_create_autocmd("FileType", {
         desc = "Enable treesitter for supported languages",
-        pattern = ts.get_installed(),
         group = vim.api.nvim_create_augroup("user-treesitter", { clear = true }),
-        callback = function()
-          vim.treesitter.start()
+        callback = function(args)
+          local buf = args.buf
+          if vim.bo[buf].buftype ~= "" then
+            return
+          end
 
-          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-          vim.wo.foldmethod = "expr"
+          local lang = vim.treesitter.language.get_lang(args.match)
+          if not lang then
+            return
+          end
 
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          local ok, added = pcall(vim.treesitter.language.add, lang)
+          if not ok or not added then
+            vim.print("Parser for " .. lang .. "not found!")
+            return
+          end
+
+          vim.treesitter.start(args.buf, lang)
+
+          vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.wo[0][0].foldmethod = "expr"
+
+          vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
       })
     end,

@@ -1,4 +1,4 @@
-local persist_path = "/tmp/nvim_format_disabled.json"
+local persist_path = vim.fs.joinpath(vim.fn.stdpath("state"), "nvim/format_disabled.json")
 
 local function load_disabled()
   local f = io.open(persist_path, "r")
@@ -11,6 +11,7 @@ local function load_disabled()
 end
 
 local function save_disabled(tbl)
+  vim.fn.mkdir(vim.fs.dirname(persist_path), "p")
   local f = io.open(persist_path, "w")
   if not f then
     return
@@ -32,7 +33,7 @@ return {
         lsp_format = "fallback",
       },
       formatters_by_ft = {
-        bash = { "shfmt", "shellcheck" },
+        bash = { "shfmt" },
         bzl = { "buildifier" },
         c = { "clang_format" },
         cpp = { "clang_format" },
@@ -41,20 +42,20 @@ return {
         javascript = { "deno_fmt" },
         json = { "deno_fmt" },
         lua = { "stylua" },
-        latex = { "latexindent" },
+        tex = { "latexindent" },
         proto = { "buf" },
         python = { "ruff_organize_imports", "ruff_format" },
         systemverilog = { "verible" },
         markdown = { "mdformat", "injected" },
         nix = { "nixfmt" },
         rust = { "rustfmt" },
-        sh = { "shfmt", "shellcheck" },
+        sh = { "shfmt" },
         toml = { "taplo" },
         typescript = { "deno_fmt" },
         typst = { "typstyle" },
         verilog = { "verible" },
         zig = { "zigfmt" },
-        zsh = { "shfmt", "shellcheck" },
+        zsh = { "shfmt" },
       },
       formatters = {
         shfmt = {

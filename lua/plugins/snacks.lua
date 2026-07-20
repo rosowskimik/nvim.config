@@ -83,10 +83,11 @@ return {
             Snacks.dim.enable()
           end
         end,
+        desc = "Toggle dim",
       },
       -- gitbrowse
       {
-        "<leader>gB",
+        "<leader>gw",
         function()
           Snacks.gitbrowse()
         end,
@@ -99,7 +100,7 @@ return {
         function()
           Snacks.lazygit()
         end,
-        { desc = "Toggle lazygit" },
+        desc = "Toggle lazygit",
       },
       -- Notifier
       {

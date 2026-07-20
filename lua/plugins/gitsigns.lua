@@ -55,7 +55,6 @@ return {
         map({ "n", "v" }, "<leader>gr", gs.reset_hunk, "Reset hunk")
         map("n", "<leader>gS", gs.stage_buffer, "Stage buffer")
         map("n", "<leader>gR", gs.reset_buffer, "Reset buffer")
-        map("n", "<leader>gu", gs.undo_stage_hunk, "Undo stage hunk")
 
         map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
         map("n", "<leader>gb", gs.blame_line, "Blame line")
@@ -66,8 +65,8 @@ return {
           gs.setqflist("all")
         end, "Hunks to quickfix")
 
-        map("n", "<leader>gd", gs.diffthis, "Diff this")
-        map("n", "<leader>gD", function()
+        map("n", "<leader>gv", gs.diffthis, "Diff this")
+        map("n", "<leader>gV", function()
           gs.diffthis("~")
         end, "Diff this (last commit)")
 

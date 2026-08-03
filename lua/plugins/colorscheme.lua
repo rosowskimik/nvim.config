@@ -1,33 +1,43 @@
+-- return {
+--   {
+--     "EdenEast/nightfox.nvim",
+--     priority = 1000,
+--     config = function()
+--       require("nightfox").setup({
+--         options = {
+--           styles = {
+--             comments = "italic",
+--             constants = "bold",
+--             types = "italic",
+--           },
+--         },
+--         groups = {
+--           nightfox = {
+--             CursorLine = { bg = "#1f2c3d" },
+--             LspInlayHint = { link = "NonText" },
+--             LspReferenceText = { style = "underline" },
+--             LspReferenceRead = { style = "underline" },
+--             LspReferenceWrite = { style = "underline" },
+--             NormalFloat = { link = "Normal" },
+--             LspHoverNormal = { bg = "#0d131a" },
+--             -- Plugins
+--             BlinkCmpGhostText = { link = "NonText" },
+--             MiniCursorword = { style = "underline" },
+--             MiniCursorwordCurrent = { style = "underline" },
+--           },
+--         },
+--       })
+--       vim.cmd("colorscheme nightfox")
+--     end,
+--   },
+-- }
 return {
   {
-    "EdenEast/nightfox.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     config = function()
-      require("nightfox").setup({
-        options = {
-          styles = {
-            comments = "italic",
-            constants = "bold",
-            types = "italic",
-          },
-        },
-        groups = {
-          nightfox = {
-            CursorLine = { bg = "#1f2c3d" },
-            LspInlayHint = { link = "NonText" },
-            LspReferenceText = { style = "underline" },
-            LspReferenceRead = { style = "underline" },
-            LspReferenceWrite = { style = "underline" },
-            NormalFloat = { link = "Normal" },
-            LspHoverNormal = { bg = "#0d131a" },
-            -- Plugins
-            BlinkCmpGhostText = { link = "NonText" },
-            MiniCursorword = { style = "underline" },
-            MiniCursorwordCurrent = { style = "underline" },
-          },
-        },
-      })
-      vim.cmd("colorscheme nightfox")
+      vim.cmd("colorscheme catppuccin-macchiato")
     end,
   },
 }

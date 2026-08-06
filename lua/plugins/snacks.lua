@@ -140,6 +140,13 @@ return {
         desc = "Neovim config files",
       },
       {
+        "<leader>sm",
+        function()
+          Snacks.picker.files({ cwd = vim.env.XDG_CONFIG_HOME .. "/nixos-config" })
+        end,
+        desc = "Neovim config files",
+      },
+      {
         "<leader>sg",
         function()
           Snacks.picker.grep()

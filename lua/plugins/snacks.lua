@@ -87,11 +87,43 @@ return {
       },
       -- gitbrowse
       {
-        "<leader>gw",
+        "<leader>goc",
         function()
-          Snacks.gitbrowse()
+          Snacks.gitbrowse({ what = "commit" })
         end,
-        desc = "Git browse",
+        desc = "Git Open Commit in browser",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gor",
+        function()
+          Snacks.gitbrowse({ what = "repo" })
+        end,
+        desc = "Git Open Repo in browser",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gob",
+        function()
+          Snacks.gitbrowse({ what = "branch" })
+        end,
+        desc = "Git Open Branch in browser",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gop",
+        function()
+          Snacks.gitbrowse({ what = "permalink" })
+        end,
+        desc = "Git Open Permalink in browser",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gof",
+        function()
+          Snacks.gitbrowse({ what = "file" })
+        end,
+        desc = "Git Open File in browser",
         mode = { "n", "v" },
       },
       -- lazygit

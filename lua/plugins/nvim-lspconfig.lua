@@ -143,6 +143,7 @@ return {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
         denols = {},
+        dts_lsp = {},
         gopls = {
           settings = {
             hints = {
@@ -173,6 +174,7 @@ return {
             },
           },
         },
+        marksman = {},
         nixd = {},
         protols = {},
         rust_analyzer = {

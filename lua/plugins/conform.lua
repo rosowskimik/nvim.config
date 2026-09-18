@@ -46,7 +46,7 @@ return {
         proto = { "buf" },
         python = { "ruff_organize_imports", "ruff_format" },
         systemverilog = { "verible" },
-        markdown = { "mdformat", "injected" },
+        -- markdown = { "mdformat", "injected" },
         nix = { "nixfmt" },
         rust = { "rustfmt" },
         sh = { "shfmt" },

@@ -4,6 +4,7 @@ return {
     dependencies = { "saghen/blink.cmp", "folke/snacks.nvim" },
     config = function(_, opts)
       local open_floating_preview = vim.lsp.util.open_floating_preview
+      ---@diagnostic disable-next-line: redefined-local, duplicate-set-field
       vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
         opts = opts or {}
         local bufnr, winnr = open_floating_preview(contents, syntax, opts, ...)
@@ -156,6 +157,12 @@ return {
               functionTypeParameters = true,
             },
           },
+        },
+        kconfig = {
+          root_markers = { ".git", "Kconfig" },
+          cmd = { "kconfig-lsp" },
+          filetypes = { "kconfig" },
+          kconfig_files = { "Kconfig", "Kconfig.*", "Kconfig_*", "Config.in*" },
         },
         lua_ls = {
           settings = {

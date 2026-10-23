@@ -44,3 +44,12 @@ vim.api.nvim_create_autocmd("BufRead", {
     vim.bo.readonly = true
   end,
 })
+
+vim.api.nvim_create_autocmd("BufRead", {
+  desc = "Open .orig files as readonly",
+  pattern = { "*.service", "*.unit", "*.mount" },
+  group = augroup("filetypes"),
+  callback = function()
+    vim.bo.filetype = "systemd"
+  end,
+})

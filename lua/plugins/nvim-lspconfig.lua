@@ -211,7 +211,7 @@ return {
             },
           },
         },
-        systemd_ls = {},
+        systemd_lsp = {},
         taplo = {},
         tinymist = {
           settings = {
